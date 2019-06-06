@@ -1,0 +1,29 @@
+$break-tablet: 769px;
+
+.input {
+  border: none !important;
+  border-radius: 3rem !important;
+}
+
+.cart_tag {
+  background-color: #ff3860;
+  color: #ffffff;
+  padding: 0 0.75em;
+  border-radius: 290486px;
+  font-size: 0.75em;
+  height: 2em;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
+  left: -0.8em;
+  top: 0.3em;
+}
+
+.icon {
+  color: whitesmoke !important;
+
+  @media screen and (max-width: $break-tablet) {
+    color: #00d1b2 !important;
+  }
+}
