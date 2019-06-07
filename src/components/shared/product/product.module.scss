@@ -1,0 +1,19 @@
+$break-tablet: 769px;
+$break-large-tablet: 1360px;
+$break-small-desktop: 1500px;
+
+.is_6_tablet {
+  @media screen and (min-width: $break-tablet) and (max-width: $break-large-tablet) {
+    width: 50% !important;
+  }
+
+  @media screen and (min-width: $break-large-tablet) and (max-width: $break-small-desktop) {
+    width: 33.3% !important;
+  }
+}
+
+.elipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
