@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Sidebar() {
@@ -8,19 +8,31 @@ export default function Sidebar() {
     rows: []
   });
 
-  const fetchCategories = async () => {
-    const response = await fetch(categoriesURL)
-      .then(response => response.json())
-      .then(response => response);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch(categoriesURL)
+        .then(response => response.json())
+        .then(response => response);
 
-    setCategories(response);
+      setCategories(response);
+    };
+    fetchCategories();
+  }, [categoriesURL]);
+
+  const toggleMenu = () => {
+    const categoryMenu = document.querySelector(".menu-list.category-menu");
+    categoryMenu.classList.toggle("is-hidden-mobile");
   };
-  fetchCategories();
 
   return (
     <aside className="menu">
-      <p className="menu-label is-size-6-desktop is-size-7-touch">Categories</p>
-      <ul className="menu-list">
+      <p className="menu-label is-size-6-desktop is-size-6-touch">
+        Categories
+        <span className="icon is-large is-hidden-tablet" onClick={toggleMenu}>
+          <i className="fas fa-angle-down" aria-hidden="true" />
+        </span>
+      </p>
+      <ul className="menu-list category-menu is-hidden-mobile">
         {categories.count === 0
           ? null
           : categories.rows.map(category => (
