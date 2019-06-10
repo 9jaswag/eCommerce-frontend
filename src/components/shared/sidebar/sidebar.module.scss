@@ -1,0 +1,11 @@
+$break-tablet: 769px;
+
+.mobile_absolute {
+  @media screen and (max-width: $break-tablet) {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    width: 70%;
+    box-shadow: 0px 0px 3px 1px rgba(246, 247, 249, 1);
+  }
+}

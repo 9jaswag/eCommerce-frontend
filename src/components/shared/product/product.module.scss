@@ -17,3 +17,18 @@ $break-small-desktop: 1500px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.product_card {
+  background-color: transparent;
+  padding: 3rem 2rem;
+  box-shadow: 0px 0px 3px 1px rgba(246, 247, 249, 1);
+}
+
+.product_card_text {
+  justify-content: space-between;
+
+  .discounted_price {
+    color: #282828;
+    font-weight: 600;
+  }
+}

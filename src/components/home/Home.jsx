@@ -3,7 +3,8 @@ import ReactPaginate from "react-paginate";
 import Header from "../shared/header/Header";
 import ProductCard from "../shared/product/ProductCard";
 import Sidebar from "../shared/sidebar/Sidebar";
-import styles from "./homepage.module.scss";
+import styles from "./home.module.scss";
+import Loader from "../shared/loader/Loader";
 
 export default () => {
   const baseURL = "https://backendapi.turing.com";
@@ -46,8 +47,16 @@ export default () => {
     const totalPages = Math.ceil(count / limit);
     return (
       <ReactPaginate
-        previousLabel={<i className="pagination-previous">previous</i>}
-        nextLabel={<i className="pagination-next">next</i>}
+        previousLabel={
+          <i className="pagination-previous">
+            <i className="fas fa-angle-double-left" />
+          </i>
+        }
+        nextLabel={
+          <i className="pagination-next">
+            <i className="fas fa-angle-double-right" />
+          </i>
+        }
         breakLabel={<span>&hellip;</span>}
         breakClassName={"pagination-ellipsis"}
         pageCount={totalPages}
@@ -64,7 +73,6 @@ export default () => {
   return (
     <>
       {/* level maybe? */}
-      <Header />
       <section className="section">
         <div className="container is-fluid">
           <div className="columns">
@@ -74,7 +82,9 @@ export default () => {
             <div className={`column ${styles.set_min_width}`}>
               <div className="columns is-multiline">
                 {products.count === 0 ? (
-                  <i className="fas fa-spinner" />
+                  <div className={styles.loader_wrapper}>
+                    <Loader />
+                  </div>
                 ) : (
                   products.rows.map(product => (
                     <ProductCard key={product.product_id} product={product} />
