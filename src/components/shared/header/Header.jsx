@@ -1,19 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/shoppy-white.png";
 import styles from "./header.module.scss";
 import AuthHeaderItems from "./AuthHeaderItems";
 import AuthUserItems from "./AuthUserItems";
+import HeaderLink from "./HeaderLink";
 
 export default function() {
+  const [departments, setDepartments] = useState([]);
+
   useEffect(() => {
+    const fetchDepartments = async () => {
+      const response = await fetch("https://backendapi.turing.com/departments")
+        .then(response => response.json())
+        .then(response => response);
+
+      setDepartments(response);
+    };
+    fetchDepartments();
+  }, []);
+
+  const toggleMobileNav = () => {
     const burger = document.querySelector(".burger");
     const nav = document.querySelector("#" + burger.dataset.target);
-    burger.onclick = event => {
-      burger.classList.toggle("is-active");
-      nav.classList.toggle("is-active");
-    };
-  });
+    burger.classList.toggle("is-active");
+    nav.classList.toggle("is-active");
+  };
 
   return (
     <nav
@@ -31,7 +43,8 @@ export default function() {
           aria-label="menu"
           aria-expanded="false"
           data-target="navbar-toggle"
-          to=""
+          to="#"
+          onClick={toggleMobileNav}
         >
           <span aria-hidden="true" />
           <span aria-hidden="true" />
@@ -40,24 +53,13 @@ export default function() {
       </div>
       <div id="navbar-toggle" className="navbar-menu">
         <div className="navbar-end">
-          <Link
-            to="/"
-            className="navbar-item is-uppercase has-text-weight-semibold"
-          >
-            Regional
-          </Link>
-          <Link
-            to="/"
-            className="navbar-item is-uppercase has-text-weight-semibold"
-          >
-            Nature
-          </Link>
-          <Link
-            to="/"
-            className="navbar-item is-uppercase has-text-weight-semibold"
-          >
-            Seasonal
-          </Link>
+          {departments.map(department => (
+            <HeaderLink
+              key={department.department_id}
+              path={`/department/${department.department_id}`}
+              value={department.name}
+            />
+          ))}
           <div className="navbar-item">
             <p className="control has-icons-left">
               <input
