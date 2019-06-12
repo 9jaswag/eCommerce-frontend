@@ -11,3 +11,108 @@
 .mb-2 {
   margin-bottom: 2rem;
 }
+
+.my-1 {
+  margin: 1rem 0;
+}
+
+.my-2 {
+  margin: 2rem 0;
+}
+
+.mx-1 {
+  margin: 0 1rem;
+}
+
+.mx-2 {
+  margin: 0 2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Arvo", serif;
+}
+
+p {
+  font-family: "Josefin Slab", serif;
+}
+
+.heading-font {
+  font-family: "Arvo", serif;
+}
+
+.body-font {
+  font-family: "Josefin Slab", serif;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.icon--rating {
+  color: #00d1b2;
+}
+
+/* Styles for hiding the native radio button */
+input[type="radio"].check-custom {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Styles for the basic appearance of the custom radio button */
+input[type="radio"].check-custom ~ .check-toggle {
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px solid #969696;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+/* Styles for the hover state appearance of the custom radio button */
+input[type="radio"].check-custom:hover ~ .check-toggle {
+  border: 2px solid #4a4a4a;
+}
+
+/* Styles for the focus state appearance of the custom radio button */
+input[type="radio"].check-custom:focus ~ .check-toggle {
+  border-color: #b0d5ff;
+  box-shadow: 0 0 0 2px rgba(23, 133, 255, 0.25);
+}
+
+/* Styles for the checked state appearance of the custom radio button */
+input[type="radio"].check-custom:checked ~ .check-toggle {
+  border: 2px solid #00d1b2;
+}
+
+/* Styles for the checked state appearance of the custom radio button */
+input[type="radio"].check-custom:checked ~ .check-toggle::after {
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  height: 40%;
+  margin: auto;
+  position: absolute;
+  border-radius: 30%;
+  background: #00d1b2;
+}
+
+.swatch-label {
+  margin-right: 0.7rem;
+  user-select: none;
+  cursor: pointer;
+}

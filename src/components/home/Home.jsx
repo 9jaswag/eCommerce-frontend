@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
-import Header from "../shared/header/Header";
 import ProductCard from "../shared/product/ProductCard";
 import Sidebar from "../shared/sidebar/Sidebar";
 import styles from "./home.module.scss";
