@@ -28,6 +28,22 @@
   margin: 0 2rem;
 }
 
+.m-1 {
+  margin: 1rem;
+}
+
+.m-2 {
+  margin: 1rem;
+}
+
+.p1 {
+  padding: 1rem;
+}
+
+.p2 {
+  padding: 2rem;
+}
+
 h1,
 h2,
 h3,
@@ -115,4 +131,50 @@ input[type="radio"].check-custom:checked ~ .check-toggle::after {
   margin-right: 0.7rem;
   user-select: none;
   cursor: pointer;
+}
+
+.review__stars {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  color: #dbdbdb;
+}
+
+.review__stars input {
+  display: none;
+}
+
+.review__stars input:checked ~ label {
+  color: #00d1b2;
+}
+
+.review__stars input + label {
+  font-size: 0;
+}
+
+.review__stars input + label::before {
+  font-size: 1.5rem;
+  content: "★";
+  cursor: pointer;
+}
+
+.review__stars input + label[for="star-5"] {
+  order: 5;
+}
+.review__stars input + label[for="star-4"] {
+  order: 4;
+}
+.review__stars input + label[for="star-3"] {
+  order: 3;
+}
+.review__stars input + label[for="star-2"] {
+  order: 2;
+}
+.review__stars input + label[for="star-1"] {
+  order: 1;
+}
+
+.review__stars input + label:hover,
+.review__stars input + label:hover ~ label {
+  color: #00d1b2;
 }

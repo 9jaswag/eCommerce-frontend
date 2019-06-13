@@ -65,6 +65,7 @@ export default function ProductDetails({ product, color, size }) {
                 value={quantity}
                 min="1"
                 readOnly
+                // add onchange for when users select
               />
             </span>
             <span className="button" onClick={incrementQuantity}>

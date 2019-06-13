@@ -8,7 +8,7 @@ export default function Radio({ attributes }) {
           <label className="swatch-label body-font has-text-weight-bold">
             <input
               type="radio"
-              name="product-name"
+              name={attr.attribute_name}
               className="check-custom"
               hidden
             />
