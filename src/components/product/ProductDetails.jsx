@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import styles from "./product.module.scss";
 import Radio from "../shared/product/Radio";
+import DisplayError from "../shared/error/DisplayError";
 
 export default function ProductDetails({ product, color, size }) {
   const [quantity, setQuantity] = useState(1);
+  const [productSize, setProductSize] = useState(null);
+  const [productColor, setProductColor] = useState(null);
+  const [quantityError, setQuantitiyError] = useState(null);
+  const [sizeError, setSizeError] = useState(null);
+  const [colorError, setColorError] = useState(null);
 
   const decrementQuantity = () => {
     if (quantity > 1) {
@@ -13,6 +19,58 @@ export default function ProductDetails({ product, color, size }) {
 
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
+  };
+
+  const onChange = event => {
+    setQuantity(parseInt(event.target.value, 10));
+  };
+
+  const onRadioClick = event => {
+    const {
+      target: {
+        parentElement: { innerText },
+        name
+      }
+    } = event;
+
+    if (name === "Color") {
+      setProductColor(innerText);
+    } else {
+      setProductSize(innerText);
+    }
+  };
+
+  const addToCart = () => {
+    const hasError = validatePurchase();
+
+    if (hasError) return;
+    console.log(quantity, productSize, productColor);
+  };
+
+  const validatePurchase = () => {
+    clearErrors();
+    let error = false;
+
+    if (quantity < 1) {
+      error = true;
+      setQuantitiyError("Please select at least one quantity");
+    }
+    if (!productSize) {
+      error = true;
+      setSizeError("Please select at a size");
+    }
+    if (!productColor) {
+      error = true;
+      setColorError("Please select at a color");
+    }
+
+    return error;
+  };
+
+  const clearErrors = () => {
+    setQuantitiyError(null);
+    setSizeError(null);
+    setColorError(null);
   };
 
   return (
@@ -37,14 +95,20 @@ export default function ProductDetails({ product, color, size }) {
         <div className="product-option-color">
           <div className="colour_swatch">
             <p className="is-uppercase has-text-weight-bold is-italic">Color</p>
+            {colorError && <DisplayError message={colorError} />}
             <div className="mt-1 mb-2">
-              {color.length > 0 ? <Radio attributes={color} /> : null}
+              {color.length > 0 ? (
+                <Radio attributes={color} onClick={onRadioClick} />
+              ) : null}
             </div>
           </div>
           <div className="colour_swatch">
             <p className="is-uppercase has-text-weight-bold is-italic">Size</p>
+            {sizeError && <DisplayError message={sizeError} />}
             <div className="mt-1 mb-2">
-              {size.length > 0 ? <Radio attributes={size} /> : null}
+              {size.length > 0 ? (
+                <Radio attributes={size} onClick={onRadioClick} />
+              ) : null}
             </div>
           </div>
         </div>
@@ -52,6 +116,7 @@ export default function ProductDetails({ product, color, size }) {
           <p className="is-uppercase has-text-weight-bold is-italic">
             Quantity
           </p>
+          {quantityError && <DisplayError message={quantityError} />}
           <div className="buttons has-addons mt-1 mb-2">
             <span className="button" onClick={decrementQuantity}>
               <i className="fas fa-caret-down" />
@@ -64,8 +129,7 @@ export default function ProductDetails({ product, color, size }) {
                 id="quantity"
                 value={quantity}
                 min="1"
-                readOnly
-                // add onchange for when users select
+                onChange={onChange}
               />
             </span>
             <span className="button" onClick={incrementQuantity}>
@@ -85,7 +149,9 @@ export default function ProductDetails({ product, color, size }) {
         </del>
       </div>
       <div className="mt-2">
-        <button className={`${styles.cta_button}`}>Add to cart</button>
+        <button className={`${styles.cta_button}`} onClick={addToCart}>
+          Add to cart
+        </button>
       </div>
     </>
   );

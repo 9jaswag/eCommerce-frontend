@@ -178,3 +178,9 @@ input[type="radio"].check-custom:checked ~ .check-toggle::after {
 .review__stars input + label:hover ~ label {
   color: #00d1b2;
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

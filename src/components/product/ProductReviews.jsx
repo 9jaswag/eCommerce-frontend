@@ -5,7 +5,7 @@ export default function ProductReviews({ review }) {
     <div className="column is-4">
       <article className="has-background-white p1">
         <div className="review_stars">
-          <span className="icon icon--rating far fa-star" />
+          <span className="icon icon--rating fas fa-star" />
           <span className="heading-font">({review.rating})</span>
         </div>
         <div className="">

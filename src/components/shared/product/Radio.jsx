@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Radio({ attributes }) {
+export default function Radio({ attributes, onClick }) {
   return (
     <ul>
       {attributes.map(attr => (
@@ -10,6 +10,7 @@ export default function Radio({ attributes }) {
               type="radio"
               name={attr.attribute_name}
               className="check-custom"
+              onClick={onClick}
               hidden
             />
             <span className="check-toggle" />
