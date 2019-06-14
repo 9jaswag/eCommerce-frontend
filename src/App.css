@@ -191,7 +191,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-style: italic;
   font-size: 0.85rem;
   font-weight: 100;
-  color: #4a4a4a !important;
+  color: #a3aab1 !important;
 }
 ::-moz-placeholder {
   /* Firefox 19+ */
@@ -199,7 +199,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-style: italic;
   font-size: 0.85rem;
   font-weight: 100;
-  color: #4a4a4a !important;
+  color: #a3aab1 !important;
 }
 :-ms-input-placeholder {
   /* IE 10+ */
@@ -207,7 +207,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-style: italic;
   font-size: 0.85rem;
   font-weight: 100;
-  color: #4a4a4a !important;
+  color: #a3aab1 !important;
 }
 :-moz-placeholder {
   /* Firefox 18- */
@@ -215,5 +215,5 @@ input[type="number"]::-webkit-outer-spin-button {
   font-style: italic;
   font-size: 0.85rem;
   font-weight: 100;
-  color: #4a4a4a !important;
+  color: #a3aab1 !important;
 }
