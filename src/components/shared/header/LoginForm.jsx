@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import logo from "../../../assets/images/shoppy.png";
 import styles from "./header.module.scss";
 import DisplayError from "../../shared/error/DisplayError";
+import { login } from "../../../action/auth.action";
+import { actions, AuthContext } from "../../context/authContext";
 
 export default function LoginForm() {
   const [userDetails, setUserDetails] = useState({
@@ -10,6 +12,7 @@ export default function LoginForm() {
   });
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
+  const { state, dispatch } = useContext(AuthContext);
 
   const onChange = event => {
     const {
@@ -17,6 +20,13 @@ export default function LoginForm() {
     } = event;
 
     setUserDetails({ ...userDetails, [name]: value });
+  };
+
+  const setUserData = data => {
+    dispatch(actions.SET_USER(data.customer));
+    window.localStorage.setItem("accessToken", data.accessToken);
+    dispatch(actions.SET_TOKEN(data.accessToken));
+    dispatch(actions.SET_AUTHENTICATION(true));
   };
 
   const onSubmit = async event => {
@@ -33,26 +43,15 @@ export default function LoginForm() {
     const payload = { email, password };
 
     try {
-      const response = await fetch(
-        "https://backendapi.turing.com/customers/login",
-        {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      )
-        .then(response => response.json())
-        .then(response => response);
+      const response = await login(payload);
 
-      console.log(response);
+      // console.log(response);
       // redrirect to homepage
+      setUserData(response);
     } catch (error) {
-      setError(error.message);
+      setError(error.error.message);
     }
   };
-
   return (
     <div className="section">
       <div className="columns">

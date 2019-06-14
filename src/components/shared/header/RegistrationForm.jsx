@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import logo from "../../../assets/images/shoppy.png";
 import styles from "./header.module.scss";
 import DisplayError from "../../shared/error/DisplayError";
+import { register } from "../../../action/auth.action";
 
 export default function RegistrationForm() {
   const [userDetails, setUserDetails] = useState({
@@ -37,15 +38,7 @@ export default function RegistrationForm() {
     const payload = { name, email, password };
 
     try {
-      const response = await fetch("https://backendapi.turing.com/customers", {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-        .then(response => response.json())
-        .then(response => response);
+      const response = await register(payload);
 
       console.log(response);
       // redrirect to homepage

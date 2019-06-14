@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/shoppy-white.png";
 import styles from "./header.module.scss";
 import AuthHeaderItems from "./AuthHeaderItems";
 import AuthUserItems from "./AuthUserItems";
 import HeaderLink from "./HeaderLink";
+import { actions, AuthContext } from "../../context/authContext";
 
 export default function() {
   const [departments, setDepartments] = useState([]);
+  const { state, dispatch } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -72,7 +74,11 @@ export default function() {
               </span>
             </p>
           </div>
-          {false ? <AuthUserItems name={"User"} /> : <AuthHeaderItems />}
+          {state.isAuthenticated ? (
+            <AuthUserItems name={state.user.name} />
+          ) : (
+            <AuthHeaderItems />
+          )}
         </div>
       </div>
     </nav>
