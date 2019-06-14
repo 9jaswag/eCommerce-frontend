@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthModal from "./AuthModal";
+import RegistrationForm from "./RegistrationForm";
+import LoginForm from "./LoginForm";
 
 export default function() {
   useEffect(() => {
@@ -52,9 +54,12 @@ export default function() {
         </div>
       </div>
 
-      {/* stuff */}
-      <AuthModal name="signup" />
-      <AuthModal name="login" />
+      <AuthModal name="signup">
+        <RegistrationForm />
+      </AuthModal>
+      <AuthModal name="login">
+        <LoginForm />
+      </AuthModal>
     </>
   );
 }

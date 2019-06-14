@@ -27,3 +27,29 @@ $break-tablet: 769px;
     color: #00d1b2 !important;
   }
 }
+
+.auth_form_input {
+  border: none !important;
+  box-sizing: border-box;
+  box-shadow: none !important;
+  border-bottom: 1px solid #00d1b2 !important;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+}
+
+.auth_form_button {
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 1rem;
+  color: white;
+}
+
+.auth_form_image {
+  width: 80%;
+}
+
+.auth_form_image_wrapper {
+  margin: 2rem 0 5rem;
+}
