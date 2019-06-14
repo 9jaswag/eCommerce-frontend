@@ -14,9 +14,10 @@ export function login(payload) {
     .then(response => response.json())
     .then(response => response)
 }
+
 export function register(payload) {
   return fetch(
-    `${BASE_URL}/customers/login`,
+    `${BASE_URL}/customers`,
     {
       method: "POST",
       body: JSON.stringify(payload),
@@ -25,6 +26,16 @@ export function register(payload) {
       }
     }
   )
+    .then(response => response.json())
+    .then(response => response)
+}
+
+export function getUser() {
+  return fetch(`${BASE_URL}/customer`, {
+    headers: {
+      'user-key': window.localStorage.getItem('accessToken')
+    }
+  })
     .then(response => response.json())
     .then(response => response)
 }

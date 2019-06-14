@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import logo from "../../../assets/images/shoppy.png";
 import styles from "./header.module.scss";
 import DisplayError from "../../shared/error/DisplayError";
 import { register } from "../../../action/auth.action";
+import { actions, AuthContext } from "../../context/authContext";
 
 export default function RegistrationForm() {
   const [userDetails, setUserDetails] = useState({
@@ -11,6 +12,7 @@ export default function RegistrationForm() {
     password: ""
   });
   const [error, setError] = useState(null);
+  const { state, dispatch } = useContext(AuthContext);
 
   const onChange = event => {
     const {
@@ -18,6 +20,13 @@ export default function RegistrationForm() {
     } = event;
 
     setUserDetails({ ...userDetails, [name]: value });
+  };
+
+  const setUserData = data => {
+    dispatch(actions.SET_USER(data.customer));
+    window.localStorage.setItem("accessToken", data.accessToken);
+    dispatch(actions.SET_TOKEN(data.accessToken));
+    dispatch(actions.SET_AUTHENTICATION(true));
   };
 
   const onSubmit = async event => {
@@ -40,13 +49,15 @@ export default function RegistrationForm() {
     try {
       const response = await register(payload);
 
-      console.log(response);
       // redrirect to homepage
+      // console.log(response);
+      setUserData(response);
     } catch (error) {
       setError(error.message);
     }
   };
 
+  // console.log(state);
   return (
     <div className="section">
       <div className="columns">

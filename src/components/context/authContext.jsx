@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 
 export const initialState = {
   user: null,
-  accessToken: window.localStorage.getItem("accesToken"),
+  accessToken: window.localStorage.getItem("accessToken"),
   isAuthenticated: false
 };
 

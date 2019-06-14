@@ -44,8 +44,6 @@ export default function LoginForm() {
 
     try {
       const response = await login(payload);
-
-      // console.log(response);
       // redrirect to homepage
       setUserData(response);
     } catch (error) {
