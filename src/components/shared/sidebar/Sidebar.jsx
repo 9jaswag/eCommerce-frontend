@@ -28,7 +28,7 @@ export default function Sidebar() {
 
   return (
     <aside className="menu">
-      <p className="menu-label is-size-6-desktop is-size-6-touch">
+      <p className="menu-label is-size-6-desktop is-size-6-touch has-text-weight-semibold">
         Categories
         <span className="icon is-large is-hidden-tablet" onClick={toggleMenu}>
           <i className="fas fa-angle-down" aria-hidden="true" />
@@ -40,7 +40,10 @@ export default function Sidebar() {
             <Loader />
           ) : (
             categories.rows.map(category => (
-              <li key={category.category_id}>
+              <li
+                key={category.category_id}
+                className="body-font has-text-weight-medium is-uppercase"
+              >
                 <Link to={`/category/${category.category_id}`}>
                   {category.name}
                 </Link>

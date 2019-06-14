@@ -72,7 +72,7 @@ export default function() {
               </span>
             </p>
           </div>
-          {true ? <AuthUserItems name={"User"} /> : <AuthHeaderItems />}
+          {false ? <AuthUserItems name={"User"} /> : <AuthHeaderItems />}
         </div>
       </div>
     </nav>
