@@ -12,7 +12,7 @@ export default function RegistrationForm() {
     password: ""
   });
   const [error, setError] = useState(null);
-  const { state, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const onChange = event => {
     const {

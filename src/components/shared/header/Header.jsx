@@ -5,11 +5,11 @@ import styles from "./header.module.scss";
 import AuthHeaderItems from "./AuthHeaderItems";
 import AuthUserItems from "./AuthUserItems";
 import HeaderLink from "./HeaderLink";
-import { actions, AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/authContext";
 
 export default function() {
   const [departments, setDepartments] = useState([]);
-  const { state, dispatch } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchDepartments = async () => {

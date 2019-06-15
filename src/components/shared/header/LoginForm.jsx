@@ -10,9 +10,8 @@ export default function LoginForm() {
     email: "",
     password: ""
   });
-  const [user, setUser] = useState({});
   const [error, setError] = useState(null);
-  const { state, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const onChange = event => {
     const {
