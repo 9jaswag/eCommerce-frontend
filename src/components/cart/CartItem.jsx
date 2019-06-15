@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import QuantityToggle from "../shared/product/QuantityToggle";
-import { updateCartItem } from "../../action/cart.action";
+import { updateCartItem, deleteCartItem } from "../../action/cart.action";
 
 export default function CartItem({ item, cartItems }) {
   const [quantity, setQuantity] = useState(item.quantity);
@@ -14,6 +14,10 @@ export default function CartItem({ item, cartItems }) {
     const response = await updateCartItem(payload);
 
     cartItems(response);
+  };
+
+  const removeItem = async () => {
+    const response = await deleteCartItem(item.item_id);
   };
 
   return (
@@ -33,7 +37,7 @@ export default function CartItem({ item, cartItems }) {
         </figure>
         <div className="media-content">
           <div className="columns is-multiline">
-            <div className="column is-8">
+            <div className="column is-5">
               <div className="product-name">
                 <h2 className="has-text-weight-bold">{item.name}</h2>
                 <span className="body-font">
@@ -42,22 +46,35 @@ export default function CartItem({ item, cartItems }) {
                 <span className="body-font">
                   Colour: {item.attributes.split(",")[1]}
                 </span>
-                <p className="has-text-weight-bold mt-1">{`$${item.price}`}</p>
+                <p className="has-text-weight-bold mt-1">
+                  Unit Price: {`$${item.price}`}
+                </p>
               </div>
             </div>
-            <div className="column">
-              <QuantityToggle quantity={quantity} setQuantity={setQuantity} />
-              {quantity !== item.quantity && (
-                <div className="tags has-addons pointer" onClick={updateItem}>
-                  <span className="tag is-link">Update</span>
-                  <span className="tag fas fa-upload has-background-white" />
-                </div>
-              )}
+            <div className="column is-flex">
+              <div>
+                <QuantityToggle quantity={quantity} setQuantity={setQuantity} />
+                {quantity !== item.quantity && (
+                  <div className="tags has-addons pointer" onClick={updateItem}>
+                    <span className="tag is-link">Update</span>
+                    <span className="tag fas fa-upload has-background-white" />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
         <div className="media-right">
           <h3 className="has-text-weight-bold mt-1">{`$${item.subtotal}`}</h3>
+          <button
+            className="button is-danger is-small mt-1 mr-1-half"
+            onClick={removeItem}
+          >
+            <span className="icon">
+              <i className="far fa-trash-alt" />
+            </span>
+            <span>Remove from cart</span>
+          </button>
         </div>
       </article>
     </section>

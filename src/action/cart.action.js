@@ -25,7 +25,7 @@ export async function getCartItems(id) {
 }
 
 export async function updateCartItem(payload) {
-  const { itemId: item_id, quantity } = payload
+  const { itemId: item_id, quantity } = payload;
   const response = await fetch(`${BASE_URL}/shoppingcart/update/${item_id}`, {
     method: "PUT",
     body: JSON.stringify({ quantity }),
@@ -35,4 +35,13 @@ export async function updateCartItem(payload) {
   });
   const result = response.json();
   return result;
+}
+
+export async function deleteCartItem(item_id) {
+  await fetch(`${BASE_URL}/shoppingcart/removeProduct/${item_id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
 }
