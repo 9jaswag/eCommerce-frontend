@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styles from "./header.module.scss";
-import { actions, AuthContext } from "../../context/authContext";
+import { actions, AuthContext } from "../../context/auth.context";
 
 export default function({ name }) {
   const { dispatch } = useContext(AuthContext);

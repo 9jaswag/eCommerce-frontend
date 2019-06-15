@@ -3,7 +3,7 @@ import logo from "../../../assets/images/shoppy.png";
 import styles from "./header.module.scss";
 import DisplayError from "../../shared/error/DisplayError";
 import { register } from "../../../action/auth.action";
-import { actions, AuthContext } from "../../context/authContext";
+import { actions, AuthContext } from "../../context/auth.context";
 
 export default function RegistrationForm() {
   const [userDetails, setUserDetails] = useState({

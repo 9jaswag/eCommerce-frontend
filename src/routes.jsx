@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { AuthProvider } from "./components/context/authContext";
+import { AuthProvider } from "./components/context/auth.context";
 import Home from "./components/home/Home";
 import Product from "./components/product/Product";
 import Layout from "./components/Layout";

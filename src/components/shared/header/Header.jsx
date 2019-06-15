@@ -5,7 +5,7 @@ import styles from "./header.module.scss";
 import AuthHeaderItems from "./AuthHeaderItems";
 import AuthUserItems from "./AuthUserItems";
 import HeaderLink from "./HeaderLink";
-import { AuthContext } from "../../context/authContext";
+import { AuthContext } from "../../context/auth.context";
 
 export default function() {
   const [departments, setDepartments] = useState([]);

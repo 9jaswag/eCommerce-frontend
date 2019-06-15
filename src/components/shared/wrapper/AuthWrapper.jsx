@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Redirect, Route } from "react-router-dom";
 import { getUser } from "../../../action/auth.action";
-import { actions, AuthContext } from "../../context/authContext";
+import { actions, AuthContext } from "../../context/auth.context";
 
 export default function AuthWrapper({
   component: Component,
