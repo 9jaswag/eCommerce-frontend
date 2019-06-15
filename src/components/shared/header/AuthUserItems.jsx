@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import styles from "./header.module.scss";
 import { actions, AuthContext } from "../../context/auth.context";
 
 export default function({ name }) {
@@ -31,16 +30,6 @@ export default function({ name }) {
             Logout
           </Link>
         </div>
-      </div>
-      <div className="navbar-item">
-        <Link to="/cart" className="">
-          <span className="is-relative">
-            <span className="icon">
-              <i className={`fas fa-lg fa-shopping-bag ${styles.icon}`} />
-            </span>
-            <span className={styles.cart_tag}>2</span>
-          </span>
-        </Link>
       </div>
     </>
   );

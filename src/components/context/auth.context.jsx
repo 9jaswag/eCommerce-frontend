@@ -34,6 +34,8 @@ export function authReducer(initialState, action = { type: "", payload: {} }) {
   return initialState;
 }
 
+export const AuthContext = React.createContext({});
+
 export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
@@ -43,5 +45,3 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
-export const AuthContext = React.createContext({});

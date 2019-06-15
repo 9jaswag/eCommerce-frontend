@@ -6,10 +6,13 @@ import AuthHeaderItems from "./AuthHeaderItems";
 import AuthUserItems from "./AuthUserItems";
 import HeaderLink from "./HeaderLink";
 import { AuthContext } from "../../context/auth.context";
+import { actions, CartContext } from "../../context/cart.context";
+import { createCart } from "../../../action/cart.action";
 
 export default function() {
   const [departments, setDepartments] = useState([]);
   const { state } = useContext(AuthContext);
+  const { state: cartState, dispatch } = useContext(CartContext);
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -20,7 +23,27 @@ export default function() {
       setDepartments(response);
     };
     fetchDepartments();
-  }, []);
+
+    const cartId = window.localStorage.getItem("cartId");
+
+    if (cartId && !cartState.cartId) {
+      dispatch(actions.SET_CART_ID(cartId));
+    }
+
+    if (!cartState.cartId && !cartId) {
+      const fetchCart = async () => {
+        const response = await createCart();
+
+        console.log(response);
+        dispatch(actions.SET_CART_ID(response.cart_id));
+        window.localStorage.setItem("cartId", response.cart_id);
+      };
+
+      fetchCart();
+    }
+  }, [cartState, dispatch]);
+
+  console.log(cartState);
 
   const toggleMobileNav = () => {
     const burger = document.querySelector(".burger");
@@ -79,6 +102,16 @@ export default function() {
           ) : (
             <AuthHeaderItems />
           )}
+          <div className="navbar-item">
+            <Link to="/cart" className="">
+              <span className="is-relative">
+                <span className="icon">
+                  <i className={`fas fa-lg fa-shopping-bag ${styles.icon}`} />
+                </span>
+                <span className={styles.cart_tag}>2</span>
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
