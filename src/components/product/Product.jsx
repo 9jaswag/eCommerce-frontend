@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ProductImage from "./ProductImage";
 import ProductDetails from "./ProductDetails";
 import ProductReview from "./ProductReview";
 import ProductReviews from "./ProductReviews";
+import { AuthContext } from "../context/auth.context";
 
 export default function Product(props) {
   const {
@@ -15,6 +16,7 @@ export default function Product(props) {
   const [color, setColor] = useState({});
   const [size, setSize] = useState({});
   const [reviews, setReviews] = useState([]);
+  const { state } = useContext(AuthContext);
 
   useEffect(() => {
     // if no product id
@@ -63,45 +65,43 @@ export default function Product(props) {
 
   return (
     <>
-      <div className="">
-        <div className="section">
-          <div className="container">
-            <div className="columns">
-              <div className="column is-two-thirds">
-                {Object.entries(product).length > 0 ? (
-                  <ProductImage product={product} />
-                ) : null}
-              </div>
-              <div className="column">
-                {Object.entries(product).length > 0 ? (
-                  <ProductDetails product={product} color={color} size={size} />
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="has-background-light">
+      {Object.entries(product).length > 0 && (
+        <div className="">
           <div className="section">
-            <div className="">
-              <h1 className="is-uppercase is-size-2 has-text-centered">
-                Reviews
-              </h1>
-            </div>
             <div className="container">
-              <ProductReview />
+              <div className="columns">
+                <div className="column is-two-thirds">
+                  <ProductImage product={product} />
+                </div>
+                <div className="column">
+                  <ProductDetails product={product} color={color} size={size} />
+                </div>
+              </div>
             </div>
-            <div className="container">
-              <div className="columns is-multiline">
-                {reviews.length > 0
-                  ? reviews.map((review, index) => (
-                      <ProductReviews key={index} review={review} />
-                    ))
-                  : "No reviews"}
+          </div>
+          <div className="has-background-light">
+            <div className="section">
+              <div className="mb-2">
+                <h1 className="is-uppercase is-size-2 has-text-centered">
+                  Reviews
+                </h1>
+              </div>
+              <div className="container">
+                {state.isAuthenticated && <ProductReview />}
+              </div>
+              <div className="container">
+                <div className="columns is-multiline">
+                  {reviews.length > 0
+                    ? reviews.map((review, index) => (
+                        <ProductReviews key={index} review={review} />
+                      ))
+                    : "No reviews"}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

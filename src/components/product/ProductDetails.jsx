@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./product.module.scss";
 import Radio from "../shared/product/Radio";
 import DisplayError from "../shared/error/DisplayError";
+import { addToCart as addProductToCart } from "../../action/cart.action";
+import { actions, CartContext } from "../context/cart.context";
 
 export default function ProductDetails({ product, color, size }) {
   const [quantity, setQuantity] = useState(1);
@@ -10,6 +12,7 @@ export default function ProductDetails({ product, color, size }) {
   const [quantityError, setQuantitiyError] = useState(null);
   const [sizeError, setSizeError] = useState(null);
   const [colorError, setColorError] = useState(null);
+  const { state, dispatch } = useContext(CartContext);
 
   const decrementQuantity = () => {
     if (quantity > 1) {
@@ -40,11 +43,20 @@ export default function ProductDetails({ product, color, size }) {
     }
   };
 
-  const addToCart = () => {
+  const addToCart = async () => {
     const hasError = validatePurchase();
 
     if (hasError) return;
-    console.log(quantity, productSize, productColor);
+
+    // add quantity to state for later calculation
+    const payload = {
+      cart_id: window.localStorage.getItem("cartId"),
+      product_id: product.product_id,
+      attributes: `${productSize}, ${productColor}`
+    };
+
+    const response = await addProductToCart(payload);
+    dispatch(actions.SET_CART_ITEMS(response));
   };
 
   const validatePurchase = () => {

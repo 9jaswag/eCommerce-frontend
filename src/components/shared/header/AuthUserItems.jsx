@@ -10,6 +10,7 @@ export default function({ name }) {
     dispatch(actions.SET_AUTHENTICATION(false));
     dispatch(actions.SET_TOKEN(""));
     window.localStorage.removeItem("accessToken");
+    window.localStorage.removeItem("cartId");
   };
 
   return (

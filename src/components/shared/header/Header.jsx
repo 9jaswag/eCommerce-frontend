@@ -7,7 +7,7 @@ import AuthUserItems from "./AuthUserItems";
 import HeaderLink from "./HeaderLink";
 import { AuthContext } from "../../context/auth.context";
 import { actions, CartContext } from "../../context/cart.context";
-import { createCart } from "../../../action/cart.action";
+import { createCart, getCartItems } from "../../../action/cart.action";
 
 export default function() {
   const [departments, setDepartments] = useState([]);
@@ -34,16 +34,23 @@ export default function() {
       const fetchCart = async () => {
         const response = await createCart();
 
-        console.log(response);
         dispatch(actions.SET_CART_ID(response.cart_id));
         window.localStorage.setItem("cartId", response.cart_id);
       };
 
       fetchCart();
     }
-  }, [cartState, dispatch]);
 
-  console.log(cartState);
+    if (cartState.cartId && cartState.cartItems.length === 0) {
+      const fetchCartItems = async () => {
+        const response = await getCartItems(cartState.cartId);
+
+        dispatch(actions.SET_CART_ITEMS(response));
+      };
+
+      fetchCartItems();
+    }
+  }, [cartState, dispatch]);
 
   const toggleMobileNav = () => {
     const burger = document.querySelector(".burger");
@@ -108,7 +115,9 @@ export default function() {
                 <span className="icon">
                   <i className={`fas fa-lg fa-shopping-bag ${styles.icon}`} />
                 </span>
-                <span className={styles.cart_tag}>2</span>
+                <span className={styles.cart_tag}>
+                  {cartState.cartItems.length}
+                </span>
               </span>
             </Link>
           </div>
