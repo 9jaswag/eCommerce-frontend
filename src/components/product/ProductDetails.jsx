@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import styles from "./product.module.scss";
 import Radio from "../shared/product/Radio";
+import QuantityToggle from "../shared/product/QuantityToggle";
 import DisplayError from "../shared/error/DisplayError";
 import { addToCart as addProductToCart } from "../../action/cart.action";
 import { actions, CartContext } from "../context/cart.context";
@@ -13,20 +14,6 @@ export default function ProductDetails({ product, color, size }) {
   const [sizeError, setSizeError] = useState(null);
   const [colorError, setColorError] = useState(null);
   const { state, dispatch } = useContext(CartContext);
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  const incrementQuantity = () => {
-    setQuantity(quantity + 1);
-  };
-
-  const onChange = event => {
-    setQuantity(parseInt(event.target.value, 10));
-  };
 
   const onRadioClick = event => {
     const {
@@ -63,7 +50,7 @@ export default function ProductDetails({ product, color, size }) {
     clearErrors();
     let error = false;
 
-    if (quantity < 1) {
+    if (parseInt(quantity, 10) < 1 || isNaN(quantity)) {
       error = true;
       setQuantitiyError("Please select at least one quantity");
     }
@@ -81,6 +68,7 @@ export default function ProductDetails({ product, color, size }) {
 
   const clearErrors = () => {
     setQuantitiyError(null);
+    setQuantity(1);
     setSizeError(null);
     setColorError(null);
   };
@@ -129,25 +117,7 @@ export default function ProductDetails({ product, color, size }) {
             Quantity
           </p>
           {quantityError && <DisplayError message={quantityError} />}
-          <div className="buttons has-addons mt-1 mb-2">
-            <span className="button" onClick={decrementQuantity}>
-              <i className="fas fa-caret-down" />
-            </span>
-            <span className="button">
-              <input
-                className={`${styles.quantity_input}`}
-                type="number"
-                name="quantity"
-                id="quantity"
-                value={quantity}
-                min="1"
-                onChange={onChange}
-              />
-            </span>
-            <span className="button" onClick={incrementQuantity}>
-              <i className="fas fa-caret-up" />
-            </span>
-          </div>
+          <QuantityToggle quantity={quantity} setQuantity={setQuantity} />
         </div>
       </div>
       <div className="">

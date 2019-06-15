@@ -23,3 +23,16 @@ export async function getCartItems(id) {
   const result = response.json();
   return result;
 }
+
+export async function updateCartItem(payload) {
+  const { itemId: item_id, quantity } = payload
+  const response = await fetch(`${BASE_URL}/shoppingcart/update/${item_id}`, {
+    method: "PUT",
+    body: JSON.stringify({ quantity }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  const result = response.json();
+  return result;
+}

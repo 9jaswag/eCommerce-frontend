@@ -12,6 +12,14 @@ $break-small-desktop: 1500px;
   }
 }
 
+.quantity_input {
+  border: none;
+  width: 2rem;
+  padding: 0;
+  text-align: center;
+  font-size: 1rem;
+}
+
 .elipsis {
   white-space: nowrap;
   overflow: hidden;
