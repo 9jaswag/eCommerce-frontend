@@ -38,10 +38,19 @@ export async function updateCartItem(payload) {
 }
 
 export async function deleteCartItem(item_id) {
-  await fetch(`${BASE_URL}/shoppingcart/removeProduct/${item_id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
+  const response = await fetch(
+    `${BASE_URL}/shoppingcart/removeProduct/${item_id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
     }
-  });
+  );
+
+  if (response.ok) {
+    return true;
+  } else {
+    return false
+  }
 }

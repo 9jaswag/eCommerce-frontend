@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { actions, AuthContext } from "../context/auth.context";
 import { actions as cartActions, CartContext } from "../context/cart.context";
 import { getCartItems } from "../../action/cart.action";
@@ -11,14 +12,8 @@ export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      const response = await getCartItems(cartState.cartId);
-
-      setCartItems(response);
-    };
-
-    fetchCartItems();
-  }, [cartState.cartId]);
+    setCartItems(cartState.cartItems);
+  }, [cartState.cartItems]);
 
   return (
     <section className="section">
@@ -40,14 +35,12 @@ export default function Cart() {
                   <div className="level-right">
                     <p className="level-item">
                       {state.isAuthenticated
-                        ? [
-                            cartItems.length > 0 && (
-                              <button className="button is-success">
-                                Checkout
-                              </button>
-                            )
-                          ]
-                        : [cartItems.length > 0 && "Login to checkout"]}
+                        ? cartItems.length > 0 && (
+                            <Link to="/checkout" className="button is-success">
+                              Checkout
+                            </Link>
+                          )
+                        : cartItems.length > 0 && "Login to checkout"}
                     </p>
                   </div>
                 </nav>

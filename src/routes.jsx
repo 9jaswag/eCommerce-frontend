@@ -6,6 +6,7 @@ import Home from "./components/home/Home";
 import Product from "./components/product/Product";
 import Layout from "./components/Layout";
 import Cart from "./components/cart/Cart";
+import Checkout from "./components/cart/Checkout";
 import AuthWrapper from "./components/shared/wrapper/AuthWrapper";
 import Category from "./components/product/Category";
 import Department from "./components/product/Department";
@@ -26,6 +27,12 @@ export default (
                 component={Department}
               />
               <AuthWrapper exact path="/cart" component={Cart} />
+              <AuthWrapper
+                type="auth"
+                exact
+                path="/checkout"
+                component={Checkout}
+              />
               <Route path="*" render={() => <p>Not found</p>} />
             </Switch>
           </Route>

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import QuantityToggle from "../shared/product/QuantityToggle";
 import { updateCartItem, deleteCartItem } from "../../action/cart.action";
+import { actions, CartContext } from "../context/cart.context";
 
 export default function CartItem({ item, cartItems }) {
   const [quantity, setQuantity] = useState(item.quantity);
+  const { state, dispatch } = useContext(CartContext);
 
   const updateItem = async () => {
     const payload = {
@@ -18,6 +20,14 @@ export default function CartItem({ item, cartItems }) {
 
   const removeItem = async () => {
     const response = await deleteCartItem(item.item_id);
+
+    if (response) {
+      const updatedCart = state.cartItems.filter(product => {
+        return product.item_id !== item.item_id;
+      });
+
+      dispatch(actions.SET_CART_ITEMS(updatedCart));
+    }
   };
 
   return (
