@@ -46,7 +46,14 @@ export default function Cart() {
               </div>
             </div>
           </div>
-          <div className="column has-background-dark">total plus Checkout</div>
+          <div className="column">
+            <div className="section">
+              <div className="">
+                <h3>Cart Total</h3>
+                {/* hide if cart is empty */}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

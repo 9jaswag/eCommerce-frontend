@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./product.module.scss";
+import { displayPrice } from "../../../helpers/displayPrice";
 
 export default function({ product }) {
+  const [price, slashedPrice] = displayPrice(
+    product.price,
+    product.discounted_price
+  );
   return (
     <div className={`column is-3 ${styles.is_6_tablet}`}>
       <article className={styles.product_card}>
@@ -22,11 +27,11 @@ export default function({ product }) {
           <h4 className="product_card-title">{product.name}</h4>
           <div className={`${styles.product_card_text} is-flex mt-1`}>
             <div className={`${styles.discounted_price}`}>
-              <span className="">{`$${product.discounted_price}`}</span>
+              <span className="">{price}</span>
             </div>
             <div className="price">
               <span>
-                <del>{`$${product.price}`}</del>
+                <del>{slashedPrice}</del>
               </span>
             </div>
           </div>

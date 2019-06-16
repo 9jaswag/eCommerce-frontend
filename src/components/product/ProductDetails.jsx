@@ -5,6 +5,7 @@ import QuantityToggle from "../shared/product/QuantityToggle";
 import DisplayError from "../shared/error/DisplayError";
 import { addToCart as addProductToCart } from "../../action/cart.action";
 import { actions, CartContext } from "../context/cart.context";
+import { displayPrice } from "../../helpers/displayPrice";
 
 export default function ProductDetails({ product, color, size }) {
   const [quantity, setQuantity] = useState(1);
@@ -14,6 +15,10 @@ export default function ProductDetails({ product, color, size }) {
   const [sizeError, setSizeError] = useState(null);
   const [colorError, setColorError] = useState(null);
   const { state, dispatch } = useContext(CartContext);
+  const [price, slashedPrice] = displayPrice(
+    product.price,
+    product.discounted_price
+  );
 
   const onRadioClick = event => {
     const {
@@ -121,13 +126,9 @@ export default function ProductDetails({ product, color, size }) {
         </div>
       </div>
       <div className="">
-        <p className="heading-font is-size-1 is-inline-block">{`$${
-          product.discounted_price
-        }`}</p>
+        <p className="heading-font is-size-1 is-inline-block">{price}</p>
         <del>
-          <small className="heading-font is-size-5 mx-1">{`$${
-            product.price
-          }`}</small>
+          <small className="heading-font is-size-5 mx-1">{slashedPrice}</small>
         </del>
       </div>
       <div className="mt-2">
