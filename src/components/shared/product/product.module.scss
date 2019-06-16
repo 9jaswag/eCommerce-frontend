@@ -12,6 +12,14 @@ $break-small-desktop: 1500px;
   }
 }
 
+.loader_wrapper {
+  height: 50vh;
+  width: 70vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .quantity_input {
   border: none;
   width: 2rem;

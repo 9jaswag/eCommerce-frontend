@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  getDepartment,
-  getDepartmentProducts
-} from "../../action/product.action";
+import { getDepartment } from "../../action/product.action";
 import GroupHero from "./GroupHero";
-import GroupProducts from "./GroupProducts";
+import ProductDisplay from "../shared/product/ProductDisplay";
 
 export default function Department(props) {
   const {
@@ -13,21 +10,17 @@ export default function Department(props) {
     }
   } = props;
 
-  const [products, setProducts] = useState({});
   const [department, setDepartment] = useState({});
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const productsResponse = await getDepartmentProducts(id);
       const departmentResponse = await getDepartment(id);
 
-      setProducts(productsResponse);
       setDepartment(departmentResponse);
     };
 
     fetchProducts();
   }, [id]);
-  console.log(products);
 
   return (
     <section>
@@ -37,11 +30,9 @@ export default function Department(props) {
           description={department.description}
         />
       )}
-      {Object.entries(products).length > 0 ? (
-        <GroupProducts products={products} setProducts={setProducts} />
-      ) : (
-        "No product"
-      )}
+      <div className="container">
+        <ProductDisplay {...props} />
+      </div>
     </section>
   );
 }

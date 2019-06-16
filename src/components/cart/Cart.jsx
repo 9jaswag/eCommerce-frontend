@@ -47,7 +47,7 @@ export default function Cart() {
                               </button>
                             )
                           ]
-                        : "Login to checkout"}
+                        : [cartItems.length > 0 && "Login to checkout"]}
                     </p>
                   </div>
                 </nav>
