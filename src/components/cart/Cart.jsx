@@ -24,7 +24,7 @@ export default function Cart() {
     <section className="section">
       <div className="container is-fluid">
         <div className="columns">
-          <div className="column is-9">
+          <div className="column">
             <div className="section">
               <div className="">
                 <p className="heading-font">
@@ -43,14 +43,6 @@ export default function Cart() {
                       />
                     ))
                   : "cart is empty"}
-              </div>
-            </div>
-          </div>
-          <div className="column">
-            <div className="section">
-              <div className="">
-                <h3>Cart Total</h3>
-                {/* hide if cart is empty */}
               </div>
             </div>
           </div>
