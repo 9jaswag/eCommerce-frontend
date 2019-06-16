@@ -16,7 +16,7 @@ export default function({ name }) {
   return (
     <>
       <div className="navbar-item has-dropdown is-hoverable">
-        <Link to="/" className="navbar-link">
+        <Link to="#" className="navbar-link">
           Hi &nbsp;<span className="has-text-weight-semibold">{name}</span>
         </Link>
         <div className="navbar-dropdown">
