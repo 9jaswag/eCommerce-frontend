@@ -10,6 +10,7 @@ import Checkout from "./components/cart/Checkout";
 import AuthWrapper from "./components/shared/wrapper/AuthWrapper";
 import Category from "./components/product/Category";
 import Department from "./components/product/Department";
+import Profile from "./components/user/Profile";
 
 export default (
   <AuthProvider>
@@ -32,6 +33,12 @@ export default (
                 exact
                 path="/checkout"
                 component={Checkout}
+              />
+              <AuthWrapper
+                type="auth"
+                exact
+                path="/profile"
+                component={Profile}
               />
               <Route path="*" render={() => <p>Not found</p>} />
             </Switch>
