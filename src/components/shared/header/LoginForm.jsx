@@ -45,7 +45,7 @@ export default function LoginForm() {
       const response = await login(payload);
       setUserData(response);
     } catch (error) {
-      const errorResponse = await error
+      const errorResponse = await error;
       setError(errorResponse.error.message);
     }
   };
