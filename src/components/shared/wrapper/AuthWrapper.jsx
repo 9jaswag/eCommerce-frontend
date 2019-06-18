@@ -14,17 +14,16 @@ export default function AuthWrapper({
   useEffect(() => {
     if (state.accessToken && !state.user) {
       const fetchUser = async () => {
-        const response = await getUser();
-        if (response.error) {
+        try {
+          const response = await getUser();
+          dispatch(actions.SET_USER(response));
+          dispatch(actions.SET_AUTHENTICATION(true));
+          setIsLoading(false);
+        } catch (error) {
           dispatch(actions.SET_USER({}));
           dispatch(actions.SET_AUTHENTICATION(false));
           setIsLoading(false);
-          return;
         }
-
-        dispatch(actions.SET_USER(response));
-        dispatch(actions.SET_AUTHENTICATION(true));
-        setIsLoading(false);
       };
       fetchUser();
     } else {

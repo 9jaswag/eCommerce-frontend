@@ -48,12 +48,13 @@ export default function RegistrationForm() {
 
     try {
       const response = await register(payload);
-
-      // redrirect to homepage
-      // console.log(response);
       setUserData(response);
     } catch (error) {
-      setError(error.message);
+      const errorResponse = await error;
+      const fields = errorResponse.error.field;
+      const errorMessage =
+        fields.split(",").length > 1 ? ["fields", "are"] : ["field", "is"];
+      setError(`The ${errorMessage[0]} ${fields} ${errorMessage[1]} required.`);
     }
   };
 

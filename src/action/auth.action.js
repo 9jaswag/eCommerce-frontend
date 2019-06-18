@@ -8,7 +8,12 @@ export function login(payload) {
       "Content-Type": "application/json"
     }
   })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw response.json();
+      }
+      return response.json();
+    })
     .then(response => response);
 }
 
@@ -20,7 +25,12 @@ export function register(payload) {
       "Content-Type": "application/json"
     }
   })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw response.json();
+      }
+      return response.json();
+    })
     .then(response => response);
 }
 
@@ -30,6 +40,11 @@ export function getUser() {
       "user-key": window.localStorage.getItem("accessToken")
     }
   })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw response.json();
+      }
+      return response.json();
+    })
     .then(response => response);
 }

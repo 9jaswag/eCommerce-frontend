@@ -43,10 +43,10 @@ export default function LoginForm() {
 
     try {
       const response = await login(payload);
-      // redrirect to homepage
       setUserData(response);
     } catch (error) {
-      setError(error.error.message);
+      const errorResponse = await error
+      setError(errorResponse.error.message);
     }
   };
   return (
