@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./form.module.scss";
+import DisplayError from "../error/DisplayError";
 
 export default function FormInput({
   label,
@@ -9,13 +10,16 @@ export default function FormInput({
   placeholder,
   onChange,
   required,
-  value = ""
+  value = "",
+  helpText,
+  error
 }) {
   return (
     <>
       <label htmlFor={id}>
         {label} {required && <span className="has-text-danger">*</span>}
       </label>
+      <div className="">{error && <DisplayError message={error} />}</div>
       <div className="control">
         <input
           type={type}
@@ -27,6 +31,9 @@ export default function FormInput({
           onChange={onChange}
           value={value}
         />
+        {helpText && (
+          <p className="help is-info has-text-weight-semibold">{helpText}</p>
+        )}
       </div>
     </>
   );

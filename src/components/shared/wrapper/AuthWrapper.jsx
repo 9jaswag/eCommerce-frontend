@@ -27,7 +27,9 @@ export default function AuthWrapper({
       };
       fetchUser();
     } else {
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
   }, [state.accessToken, state.user, dispatch]);
 

@@ -7,7 +7,6 @@ export default function Profile() {
   const { state, dispatch } = useContext(AuthContext);
   const { user } = state;
 
-  console.log(user);
   return (
     <section className="section">
       <div className="container">

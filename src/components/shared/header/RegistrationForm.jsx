@@ -58,7 +58,6 @@ export default function RegistrationForm() {
     }
   };
 
-  // console.log(state);
   return (
     <div className="section">
       <div className="columns">
