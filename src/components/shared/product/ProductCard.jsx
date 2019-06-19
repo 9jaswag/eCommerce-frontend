@@ -12,16 +12,14 @@ export default function({ product }) {
     <div className={`column is-3 ${styles.is_6_tablet}`}>
       <article className={styles.product_card}>
         <figure className="product_card-figure image is-square">
-          <Link to={`/products/${product.product_id}`}>
-            <img
-              className="product_card-image"
-              src={`https://backendapi.turing.com/images/products/${
-                product.thumbnail
-              }`}
-              alt={`${product.name} thumbnail`}
-              title={`${product.name} thumbnail`}
-            />
-          </Link>
+          <img
+            className="product_card-image"
+            src={`https://backendapi.turing.com/images/products/${
+              product.thumbnail
+            }`}
+            alt={`${product.name} thumbnail`}
+            title={`${product.name} thumbnail`}
+          />
         </figure>
         <div className="product_card-body mt-1">
           <h4 className="product_card-title">{product.name}</h4>
@@ -36,9 +34,12 @@ export default function({ product }) {
             </div>
           </div>
           <div className="product_cta">
-            <button className="button is-rounded mt-2 is-uppercase">
-              Add to cart
-            </button>
+            <Link
+              to={`/products/${product.product_id}`}
+              className="button is-rounded mt-2 is-uppercase"
+            >
+              Buy Now
+            </Link>
           </div>
         </div>
       </article>

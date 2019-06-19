@@ -68,7 +68,7 @@ export default function Profile() {
                       <span className="is-block body-font">{user.country}</span>
                     </>
                   ) : (
-                    "Please update your profile"
+                    "Please update your shipping and billing information"
                   )}
                 </div>
               </div>

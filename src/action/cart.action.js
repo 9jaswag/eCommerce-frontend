@@ -51,6 +51,16 @@ export async function deleteCartItem(item_id) {
   if (response.ok) {
     return true;
   } else {
-    return false
+    return false;
   }
+}
+
+export async function getCartTotal(id) {
+  const response = await fetch(`${BASE_URL}/shoppingcart/totalAmount/${id}`);
+  if (!response.ok) {
+    throw response.json();
+  }
+
+  const result = response.json();
+  return result;
 }

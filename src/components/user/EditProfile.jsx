@@ -105,6 +105,7 @@ export default function EditProfile(props) {
       const creditCardResponse = await updateCreditCard(userDetails);
 
       dispatch(actions.SET_TOKEN(creditCardResponse));
+      props.history.push("/profile");
     } catch (error) {
       const errorResponse = await error;
       console.log(errorResponse);

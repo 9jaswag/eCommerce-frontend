@@ -1,4 +1,4 @@
-export const profileStatus = user => {
+export const profileStatus = (user, checkCard = false) => {
   if (
     !user.address_1 ||
     !user.city ||
@@ -8,5 +8,8 @@ export const profileStatus = user => {
   ) {
     return false;
   }
+
+  if (checkCard && !user.credit_card) return false;
+
   return true;
 };
