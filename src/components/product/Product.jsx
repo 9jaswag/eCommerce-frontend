@@ -47,7 +47,7 @@ export default function Product(props) {
       const response = await fetch(`${baseURL}/products/${id}/reviews`)
         .then(response => response.json())
         .then(response => response);
-      console.log(response);
+      // console.log(response);
 
       setReviews(response);
     };
