@@ -31,17 +31,17 @@ function Header(props) {
     }
 
     if (!cartState.cartId && !cartId) {
-      const fetchCart = async () => {
+      const generateCart = async () => {
         const response = await createCart();
 
         dispatch(actions.SET_CART_ID(response.cart_id));
         window.localStorage.setItem("cartId", response.cart_id);
       };
 
-      fetchCart();
+      generateCart();
     }
 
-    if (cartState.cartId && cartState.cartItems.length === 0) {
+    if (cartState.cartId) {
       const fetchCartItems = async () => {
         const response = await getCartItems(cartState.cartId);
 
@@ -50,7 +50,7 @@ function Header(props) {
 
       fetchCartItems();
     }
-  }, [cartState, dispatch]);
+  }, [cartState.cartId, dispatch]);
 
   const toggleMobileNav = () => {
     const burger = document.querySelector(".burger");

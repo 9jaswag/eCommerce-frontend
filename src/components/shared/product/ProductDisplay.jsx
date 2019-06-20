@@ -89,30 +89,39 @@ export default function ProductDisplay(props) {
 
   return (
     <div className="">
-      <h3 className="is-uppercase is-size-4 has-text-centered my-3">
-        {`Showing ${paginationMetadata.page} - ${
-          products.count < 12 ? products.count : paginationMetadata.page * 12
-        } 0f ${products.count} products`}
-      </h3>
-      <div className="columns is-multiline">
-        {products.count === 0 ? (
-          <div className={styles.loader_wrapper}>
-            <Loader />
+      {products.count > 0 ? (
+        <>
+          <h3 className="is-uppercase is-size-4 has-text-centered my-3">
+            {`Showing ${paginationMetadata.page} - ${
+              products.count < 12
+                ? products.count
+                : paginationMetadata.page * 12
+            } 0f ${products.count} products`}
+          </h3>
+          <div className="columns is-multiline">
+            {products.count === 0 ? (
+              <div className={styles.loader_wrapper}>
+                <Loader />
+              </div>
+            ) : (
+              products.rows.map(product => (
+                <ProductCard key={product.product_id} product={product} />
+              ))
+            )}
           </div>
-        ) : (
-          products.rows.map(product => (
-            <ProductCard key={product.product_id} product={product} />
-          ))
-        )}
-      </div>
-      <nav
-        className="pagination is-centered is-small is-rounded"
-        role="navigation"
-        aria-label="pagination"
-      >
-        {products.count > 0 && createPagination()}
-      </nav>
+          <nav
+            className="pagination is-centered is-small is-rounded"
+            role="navigation"
+            aria-label="pagination"
+          >
+            {products.count > 0 && createPagination()}
+          </nav>
+        </>
+      ) : (
+        <div className="section">
+          <h3 className="has-text-centered">No product found</h3>
+        </div>
+      )}
     </div>
   );
 }
-// query_string
