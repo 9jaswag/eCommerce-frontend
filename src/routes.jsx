@@ -12,6 +12,7 @@ import Category from "./components/product/Category";
 import Department from "./components/product/Department";
 import Profile from "./components/user/Profile";
 import EditProfile from "./components/user/EditProfile";
+import Search from "./components/product/Search";
 
 export default (
   <AuthProvider>
@@ -47,6 +48,7 @@ export default (
                 path="/edit-profile"
                 component={EditProfile}
               />
+              <AuthWrapper exact path="/search" component={Search} />
               <Route path="*" render={() => <p>Not found</p>} />
             </Switch>
           </Route>

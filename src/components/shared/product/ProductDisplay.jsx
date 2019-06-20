@@ -26,6 +26,11 @@ export default function ProductDisplay(props) {
     const buildProductURL = () => {
       const { page, limit } = paginationMetadata;
 
+      if (path.includes("search"))
+        return `${baseURL}/products/search/?query_string=${
+          props.location.search.split("=")[1]
+        }&page=${page}&limit=${limit}`;
+
       if (!id) return `${baseURL}/products?page=${page}&limit=${limit}`;
 
       if (path.includes("category"))
@@ -43,7 +48,7 @@ export default function ProductDisplay(props) {
       setProducts(response);
     };
     fetchProducts();
-  }, [id, paginationMetadata, path]);
+  }, [id, paginationMetadata, path, props.location.search]);
 
   const handlePagination = page => {
     setPaginationMetadata({
@@ -110,3 +115,4 @@ export default function ProductDisplay(props) {
     </div>
   );
 }
+// query_string

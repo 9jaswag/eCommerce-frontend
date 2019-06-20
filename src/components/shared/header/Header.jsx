@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import logo from "../../../assets/images/shoppy-white.png";
 import styles from "./header.module.scss";
 import AuthHeaderItems from "./AuthHeaderItems";
@@ -9,7 +9,7 @@ import { AuthContext } from "../../context/auth.context";
 import { actions, CartContext } from "../../context/cart.context";
 import { createCart, getCartItems } from "../../../action/cart.action";
 
-export default function() {
+function Header(props) {
   const [departments, setDepartments] = useState([]);
   const { state } = useContext(AuthContext);
   const { state: cartState, dispatch } = useContext(CartContext);
@@ -59,6 +59,14 @@ export default function() {
     nav.classList.toggle("is-active");
   };
 
+  const onSearch = event => {
+    event.preventDefault();
+    const { target } = event;
+    const element = target.querySelector("input");
+
+    props.history.push(`/search?q=${element.value}`);
+  };
+
   return (
     <nav
       className="navbar is-primary is-fixed-top"
@@ -93,16 +101,19 @@ export default function() {
             />
           ))}
           <div className="navbar-item">
-            <p className="control has-icons-left">
-              <input
-                className={`input ${styles.input}`}
-                type="search"
-                placeholder="Search anything"
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-search" />
-              </span>
-            </p>
+            <form onSubmit={onSearch}>
+              <p className="control has-icons-left">
+                <input
+                  className={`input ${styles.input}`}
+                  type="search"
+                  placeholder="Search anything"
+                  required
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-search" />
+                </span>
+              </p>
+            </form>
           </div>
           {state.isAuthenticated ? (
             <AuthUserItems name={state.user.name} />
@@ -126,3 +137,5 @@ export default function() {
     </nav>
   );
 }
+
+export default withRouter(Header);
