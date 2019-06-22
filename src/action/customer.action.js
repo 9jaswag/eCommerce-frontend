@@ -75,3 +75,31 @@ export function getShippingOptions(id) {
     })
     .then(response => response);
 }
+
+export async function getOrders() {
+  const response = await fetch(`${BASE_URL}/orders/inCustomer`, {
+    headers: {
+      "user-key": window.localStorage.getItem("accessToken")
+    }
+  });
+  if (!response.ok) {
+    throw response.json();
+  }
+
+  const result = response.json();
+  return result;
+}
+
+export async function getOrder(id) {
+  const response = await fetch(`${BASE_URL}/orders/${id}`, {
+    headers: {
+      "user-key": window.localStorage.getItem("accessToken")
+    }
+  });
+  if (!response.ok) {
+    throw response.json();
+  }
+
+  const result = response.json();
+  return result;
+}
