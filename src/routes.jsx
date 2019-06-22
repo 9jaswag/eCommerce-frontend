@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import { AuthProvider } from "./components/context/auth.context";
 import { CartProvider } from "./components/context/cart.context";
 import Home from "./components/home/Home";
@@ -22,6 +27,7 @@ export default (
         <Layout>
           <Route>
             <Switch>
+              <Route exact path="/9jaswag" render={() => <Redirect to="/" />} />
               <AuthWrapper exact path="/" component={Home} />
               <AuthWrapper exact path="/products/:id" component={Product} />
               <AuthWrapper exact path="/category/:id" component={Category} />
