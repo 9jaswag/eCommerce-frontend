@@ -73,64 +73,66 @@ function Header(props) {
       role="navigation"
       aria-label="main navigation"
     >
-      <div className="navbar-brand">
-        <Link className="navbar-item" to="/">
-          <img src={logo} alt="Shoppy logo" width={112} height={28} />
-        </Link>
-        <Link
-          role="button"
-          className="navbar-burger burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbar-toggle"
-          to="#"
-          onClick={toggleMobileNav}
-        >
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-        </Link>
-      </div>
-      <div id="navbar-toggle" className="navbar-menu">
-        <div className="navbar-end">
-          {departments.map(department => (
-            <HeaderLink
-              key={department.department_id}
-              path={`/department/${department.department_id}`}
-              value={department.name}
-            />
-          ))}
-          <div className="navbar-item">
-            <form onSubmit={onSearch}>
-              <p className="control has-icons-left">
-                <input
-                  className={`input ${styles.input}`}
-                  type="search"
-                  placeholder="Search anything"
-                  required
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-search" />
+      <div className="container is-fluid">
+        <div className="navbar-brand">
+          <Link className="navbar-item" to="/">
+            <img src={logo} alt="Shoppy logo" width={112} height={28} />
+          </Link>
+          <Link
+            role="button"
+            className="navbar-burger burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbar-toggle"
+            to="#"
+            onClick={toggleMobileNav}
+          >
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </Link>
+        </div>
+        <div id="navbar-toggle" className="navbar-menu">
+          <div className="navbar-end">
+            {departments.map(department => (
+              <HeaderLink
+                key={department.department_id}
+                path={`/department/${department.department_id}`}
+                value={department.name}
+              />
+            ))}
+            <div className="navbar-item">
+              <form onSubmit={onSearch}>
+                <p className="control has-icons-left">
+                  <input
+                    className={`input ${styles.input}`}
+                    type="search"
+                    placeholder="Search anything"
+                    required
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fas fa-search" />
+                  </span>
+                </p>
+              </form>
+            </div>
+            {state.isAuthenticated ? (
+              <AuthUserItems name={state.user.name} />
+            ) : (
+              <AuthHeaderItems />
+            )}
+            <div className="navbar-item">
+              <Link to="/cart" className="">
+                <span className="is-relative">
+                  <span className="icon">
+                    <i className={`fas fa-lg fa-shopping-bag ${styles.icon}`} />
+                  </span>
+                  <span className={styles.cart_tag}>
+                    {cartState.cartItems.length}
+                  </span>
                 </span>
-              </p>
-            </form>
-          </div>
-          {state.isAuthenticated ? (
-            <AuthUserItems name={state.user.name} />
-          ) : (
-            <AuthHeaderItems />
-          )}
-          <div className="navbar-item">
-            <Link to="/cart" className="">
-              <span className="is-relative">
-                <span className="icon">
-                  <i className={`fas fa-lg fa-shopping-bag ${styles.icon}`} />
-                </span>
-                <span className={styles.cart_tag}>
-                  {cartState.cartItems.length}
-                </span>
-              </span>
-            </Link>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
