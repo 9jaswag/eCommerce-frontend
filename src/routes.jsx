@@ -13,6 +13,7 @@ import Department from "./components/product/Department";
 import Profile from "./components/user/Profile";
 import EditProfile from "./components/user/EditProfile";
 import Search from "./components/product/Search";
+import NotFound from "./components/shared/not_found/NotFound";
 
 export default (
   <AuthProvider>
@@ -49,7 +50,7 @@ export default (
                 component={EditProfile}
               />
               <AuthWrapper exact path="/search" component={Search} />
-              <Route path="*" render={() => <p>Not found</p>} />
+              <AuthWrapper path="*" component={NotFound} />
             </Switch>
           </Route>
         </Layout>
