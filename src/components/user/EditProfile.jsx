@@ -12,7 +12,6 @@ import {
   updateCreditCard,
   getRegions
 } from "../../action/customer.action";
-import styles from "./user.module.scss";
 
 export default function EditProfile(props) {
   const [regions, setRegions] = useState(null);
@@ -109,13 +108,13 @@ export default function EditProfile(props) {
     if (!valid) return;
 
     try {
-      const profileResponse = await updateProfile(userDetails);
-      const addressResponse = await updateAddress(userDetails);
+      await updateProfile(userDetails);
+      await updateAddress(userDetails);
       const creditCardResponse = await updateCreditCard(userDetails);
 
       dispatch(actions.SET_TOKEN(creditCardResponse));
       toast.success("Profile updated successfully!", {
-        onClose: () => props.history.push("/profile")
+        onClose: () => (window.location.href = "/profile")
       });
     } catch (error) {
       const errorResponse = await error;
@@ -297,14 +296,6 @@ export default function EditProfile(props) {
                   Credit card <span className="has-text-danger">*</span>
                 </label>
                 <div className="control">
-                  {/* <CreditCardInput
-                    cardNumberInputProps={{
-                      value: userDetails.credit_card,
-                      onChange: onCcChange,
-                      onError: error => toast.error(error)
-                    }}
-                    fieldClassName="user-card-input"
-                  /> */}
                   <PaymentInputsWrapper className="user-card-input">
                     <svg {...getCardImageProps({ images })} />
 

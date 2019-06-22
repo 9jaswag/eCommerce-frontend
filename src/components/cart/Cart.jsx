@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { actions, AuthContext } from "../context/auth.context";
-import { actions as cartActions, CartContext } from "../context/cart.context";
-import { getCartItems } from "../../action/cart.action";
+import { AuthContext } from "../context/auth.context";
+import { CartContext } from "../context/cart.context";
 import CartItem from "./CartItem";
 import EmptyCart from "./EmptyCart";
 
 export default function Cart() {
-  const { state, dispatch } = useContext(AuthContext);
-  const { state: cartState, dispatch: cartDispatch } = useContext(CartContext);
+  const { state } = useContext(AuthContext);
+  const { state: cartState } = useContext(CartContext);
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {

@@ -97,12 +97,12 @@ export default function LoginForm() {
                       </div>
                     </div>
                     <div className="field mt-2 has-text-centered">
-                      <button className="button is-info">
+                      {/* <button className="button is-info">
                         <span className="icon">
                           <i className="fab fa-facebook" />
                         </span>
                         <span>Sign in with Facebook</span>
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </div>

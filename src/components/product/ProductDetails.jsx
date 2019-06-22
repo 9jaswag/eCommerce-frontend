@@ -15,7 +15,7 @@ export default function ProductDetails({ product, color, size }) {
   const [quantityError, setQuantitiyError] = useState(null);
   const [sizeError, setSizeError] = useState(null);
   const [colorError, setColorError] = useState(null);
-  const { state, dispatch } = useContext(CartContext);
+  const { dispatch } = useContext(CartContext);
   const [price, slashedPrice] = displayPrice(
     product.price,
     product.discounted_price
@@ -94,9 +94,11 @@ export default function ProductDetails({ product, color, size }) {
             <span className="heading-font">(150)</span>
           </div>
         </div> */}
+        <hr />
         <div className="product-view-description my-2">
           <p className="is-size-4">{product.description}</p>
         </div>
+        <hr />
       </div>
       <div className="product-view-options my-2">
         <div className="product-option-color">

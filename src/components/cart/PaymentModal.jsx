@@ -6,7 +6,6 @@ import { createOrder } from "../../action/cart.action";
 import { processPayment } from "../../action/cart.action";
 
 function PaymentModal({ stripe, cartDetails }) {
-  const [isLoading, setisLoading] = useState(false);
   const [isSubmitting, setisSubmitting] = useState(false);
 
   const processPay = async () => {
@@ -47,7 +46,7 @@ function PaymentModal({ stripe, cartDetails }) {
         window.location.href = "/";
       });
     } catch (error) {
-      setisLoading(false);
+      setisSubmitting(false);
       toast.error("Something went wrong with your payment. Please try again");
     }
   };
@@ -74,7 +73,7 @@ function PaymentModal({ stripe, cartDetails }) {
                 disabled={isSubmitting}
                 onClick={processPay}
               >
-                {isLoading ? "Processing" : "Pay"}
+                {isSubmitting ? "Processing" : "Pay"}
               </button>
             </div>
           </div>

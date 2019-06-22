@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Elements, StripeProvider } from "react-stripe-elements";
-import { actions, AuthContext } from "../context/auth.context";
-import { actions as cartActions, CartContext } from "../context/cart.context";
+import { AuthContext } from "../context/auth.context";
+import { CartContext } from "../context/cart.context";
 import { profileStatus } from "../../helpers/profileStatus";
 import { getShippingOptions } from "../../action/customer.action";
 import { getCartTotal } from "../../action/cart.action";
@@ -10,8 +10,8 @@ import image from "../../assets/images/stripe.png";
 import PaymentModal from "./PaymentModal";
 
 export default function Checkout(props) {
-  const { state, dispatch } = useContext(AuthContext);
-  const { state: cartState, dispatch: cartDispatch } = useContext(CartContext);
+  const { state } = useContext(AuthContext);
+  const { state: cartState } = useContext(CartContext);
   const [shippingMethods, setShippingMethods] = useState(null);
   const [shippingId, setShippingId] = useState(null);
   const [cartTotal, setCartTotal] = useState({
