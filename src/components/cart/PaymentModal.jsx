@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 import { createOrder } from "../../action/cart.action";
 import { processPayment } from "../../action/cart.action";
 
@@ -30,20 +32,25 @@ function PaymentModal({ stripe, cartDetails }) {
 
       const payment = await processPayment(paymentPayload);
 
-      console.log(payment, "payment");
       setisSubmitting(false);
 
       const modal = document.querySelector(`.modal.payment`);
       modal.classList.remove("is-active");
-      window.location.href = "/";
 
-      // toastify and go to homepage
+      Swal.fire({
+        title: "Payment successful!",
+        html: `Thank you for your business, click <a target="__blank" href="${
+          payment.receipt_url
+        }">here</a> to see your receipt`,
+        type: "success"
+      }).then(() => {
+        window.location.href = "/";
+      });
     } catch (error) {
       setisLoading(false);
-      // toastify some error occured with payment
+      toast.error("Something went wrong with your payment. Please try again");
     }
   };
-  // `Thank you for your business, click <a target="__blank" href="${payment.data.receipt_url}">here</a> to see your receipt
 
   return (
     <div className="modal payment">

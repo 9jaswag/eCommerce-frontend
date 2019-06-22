@@ -68,7 +68,7 @@
 }
 
 .w-100 {
-  width: 100%;
+  width: 100% !important;
 }
 
 .w-20 {
@@ -251,4 +251,22 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 0.85rem;
   font-weight: 100;
   color: #a3aab1 !important;
+}
+
+.user-card-input > div {
+  border: none !important;
+  box-shadow: none;
+  border-bottom: 1px solid #00d1b2 !important;
+  border-radius: 0 !important;
+  padding-left: 0;
+}
+
+.lVApJ {
+  width: 100%;
+}
+
+@media screen and (min-width: 769px) {
+  .card-input-wrapper {
+    margin-left: 10rem;
+  }
 }

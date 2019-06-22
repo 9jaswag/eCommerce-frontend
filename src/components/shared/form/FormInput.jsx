@@ -12,7 +12,8 @@ export default function FormInput({
   required,
   value = "",
   helpText,
-  error
+  error,
+  disabled
 }) {
   return (
     <>
@@ -30,6 +31,7 @@ export default function FormInput({
           required={required}
           onChange={onChange}
           value={value}
+          disabled={disabled}
         />
         {helpText && (
           <p className="help is-info has-text-weight-semibold">{helpText}</p>

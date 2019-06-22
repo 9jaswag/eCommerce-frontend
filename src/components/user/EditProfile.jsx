@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+import { usePaymentInputs, PaymentInputsWrapper } from "react-payment-inputs";
+import { toast } from "react-toastify";
+import images from "react-payment-inputs/lib/images";
 import FormInput from "../shared/form/FormInput";
 import FormSelect from "../shared/form/FormSelect";
 import { actions, AuthContext } from "../context/auth.context";
@@ -9,6 +12,7 @@ import {
   updateCreditCard,
   getRegions
 } from "../../action/customer.action";
+import styles from "./user.module.scss";
 
 export default function EditProfile(props) {
   const [regions, setRegions] = useState(null);
@@ -29,7 +33,7 @@ export default function EditProfile(props) {
     credit_card: state.user.credit_card,
     shipping_region_id: state.user.shipping_region_id
   });
-  const [error, setError] = useState(null);
+  const { meta, getCardNumberProps, getCardImageProps } = usePaymentInputs();
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -50,6 +54,10 @@ export default function EditProfile(props) {
     setUserDetails({ ...userDetails, [name]: value });
   };
 
+  const onCcChange = event => {
+    setUserDetails({ ...userDetails, credit_card: event.target.value });
+  };
+
   const onSelectChange = event => {
     const {
       target: { value }
@@ -66,25 +74,28 @@ export default function EditProfile(props) {
   };
 
   const validateInput = input => {
-    setError(null);
-
     if (input.password && input.password.length < 6) {
-      setError("Please fill all required fields appropriately.");
+      toast.error("Please fill all required fields appropriately.");
       return false;
     }
 
     if (input.shipping_region_id === 1) {
-      setError("Please fill all required fields appropriately.");
+      toast.error("Please fill all required fields appropriately.");
       return false;
     }
 
     if (input.credit_card.trim().length === 0) {
-      setError("Please fill all required fields appropriately.");
+      toast.error("Please fill all required fields appropriately.");
       return false;
     }
 
     if (!profileStatus(userDetails)) {
-      setError("Please fill all required fields appropriately.");
+      toast.error("Please fill all required fields appropriately.");
+      return false;
+    }
+
+    if (meta.isTouched && meta.error) {
+      toast.error("Please fill all required fields appropriately.");
       return false;
     }
 
@@ -97,18 +108,18 @@ export default function EditProfile(props) {
     const valid = validateInput(userDetails);
     if (!valid) return;
 
-    console.log(userDetails);
-
     try {
       const profileResponse = await updateProfile(userDetails);
       const addressResponse = await updateAddress(userDetails);
       const creditCardResponse = await updateCreditCard(userDetails);
 
       dispatch(actions.SET_TOKEN(creditCardResponse));
-      props.history.push("/profile");
+      toast.success("Profile updated successfully!", {
+        onClose: () => props.history.push("/profile")
+      });
     } catch (error) {
       const errorResponse = await error;
-      console.log(errorResponse);
+      toast.error("Profile update failed. Please retry!");
     }
   };
 
@@ -127,35 +138,37 @@ export default function EditProfile(props) {
                   placeholder="Enter your name"
                   onChange={onChange}
                   required={true}
-                  error={error}
                   value={userDetails.name}
                 />
               </div>
-              <div className="field mt-2">
-                <FormInput
-                  label="Email"
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Enter your email"
-                  onChange={onChange}
-                  required={true}
-                  error={error}
-                  value={userDetails.email}
-                />
-              </div>
-              <div className="field mt-2">
-                <FormInput
-                  label="Password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  onChange={onChange}
-                  value={userDetails.password}
-                  helpText="Minimum of six characters"
-                  error={error}
-                />
+              <div className="field is-horizontal">
+                <div className="field-body">
+                  <div className="field mt-1">
+                    <FormInput
+                      label="Email"
+                      type="email"
+                      name="email"
+                      id="email"
+                      placeholder="Enter your email"
+                      onChange={onChange}
+                      required={true}
+                      value={userDetails.email}
+                      disabled={true}
+                    />
+                  </div>
+                  <div className="field mt-1">
+                    <FormInput
+                      label="Password"
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="Enter your password"
+                      onChange={onChange}
+                      value={userDetails.password}
+                      helpText="Minimum of six characters"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="field is-horizontal">
                 <div className="field-body">
@@ -181,10 +194,6 @@ export default function EditProfile(props) {
                       value={userDetails.eve_phone ? userDetails.eve_phone : ""}
                     />
                   </div>
-                </div>
-              </div>
-              <div className="field is-horizontal">
-                <div className="field-body">
                   <div className="field mt-1">
                     <FormInput
                       label="Mobile Phone"
@@ -196,6 +205,10 @@ export default function EditProfile(props) {
                       value={userDetails.mob_phone ? userDetails.mob_phone : ""}
                     />
                   </div>
+                </div>
+              </div>
+              <div className="field is-horizontal">
+                <div className="field-body">
                   <div className="field mt-1">
                     <FormInput
                       label="Address"
@@ -205,14 +218,9 @@ export default function EditProfile(props) {
                       placeholder="Enter your address"
                       onChange={onChange}
                       required={true}
-                      error={error}
                       value={userDetails.address_1 ? userDetails.address_1 : ""}
                     />
                   </div>
-                </div>
-              </div>
-              <div className="field is-horizontal">
-                <div className="field-body">
                   <div className="field mt-1">
                     <FormInput
                       label="Address 2"
@@ -233,11 +241,13 @@ export default function EditProfile(props) {
                       placeholder="Enter your city"
                       onChange={onChange}
                       required={true}
-                      error={error}
                       value={userDetails.city ? userDetails.city : ""}
                     />
                   </div>
                 </div>
+              </div>
+              <div className="field is-horizontal">
+                <div className="field-body" />
               </div>
               <div className="field is-horizontal">
                 <div className="field-body">
@@ -263,16 +273,11 @@ export default function EditProfile(props) {
                       placeholder="Enter your postal code"
                       onChange={onChange}
                       required={true}
-                      error={error}
                       value={
                         userDetails.postal_code ? userDetails.postal_code : ""
                       }
                     />
                   </div>
-                </div>
-              </div>
-              <div className="field is-horizontal">
-                <div className="field-body">
                   <div className="field mt-1">
                     <FormInput
                       label="Country"
@@ -282,25 +287,41 @@ export default function EditProfile(props) {
                       placeholder="Enter your country"
                       onChange={onChange}
                       required={true}
-                      error={error}
                       value={userDetails.country ? userDetails.country : ""}
                     />
                   </div>
-                  <div className="field mt-1">
-                    <FormInput
-                      label="Credit card"
-                      type="text"
-                      name="credit_card"
-                      id="credit_card"
-                      placeholder="Enter your credit card information"
-                      onChange={onChange}
-                      required={true}
-                      error={error}
+                </div>
+              </div>
+              <div className="field">
+                <label htmlFor="credit-card">
+                  Credit card <span className="has-text-danger">*</span>
+                </label>
+                <div className="control">
+                  {/* <CreditCardInput
+                    cardNumberInputProps={{
+                      value: userDetails.credit_card,
+                      onChange: onCcChange,
+                      onError: error => toast.error(error)
+                    }}
+                    fieldClassName="user-card-input"
+                  /> */}
+                  <PaymentInputsWrapper className="user-card-input">
+                    <svg {...getCardImageProps({ images })} />
+
+                    <input
+                      id="card-credit"
+                      className="w-100"
+                      {...getCardNumberProps({
+                        onChange: onCcChange
+                      })}
                       value={
                         userDetails.credit_card ? userDetails.credit_card : ""
                       }
                     />
-                  </div>
+                  </PaymentInputsWrapper>
+                  {/* {meta.isTouched && meta.error && (
+                        <span>Error: {meta.error}</span>
+                      )} */}
                 </div>
               </div>
               <div className="field">

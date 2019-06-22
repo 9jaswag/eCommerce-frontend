@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { toast } from "react-toastify";
 import styles from "./product.module.scss";
 import Radio from "../shared/product/Radio";
 import QuantityToggle from "../shared/product/QuantityToggle";
@@ -40,7 +41,6 @@ export default function ProductDetails({ product, color, size }) {
 
     if (hasError) return;
 
-    // add quantity to state for later calculation
     const payload = {
       cart_id: window.localStorage.getItem("cartId"),
       product_id: product.product_id,
@@ -49,6 +49,8 @@ export default function ProductDetails({ product, color, size }) {
 
     const response = await addProductToCart(payload);
     dispatch(actions.SET_CART_ITEMS(response));
+
+    toast.success("Product has been added to cart");
   };
 
   const validatePurchase = () => {
