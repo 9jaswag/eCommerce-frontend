@@ -47,7 +47,6 @@ export default function Product(props) {
       const response = await fetch(`${baseURL}/products/${id}/reviews`)
         .then(response => response.json())
         .then(response => response);
-      // console.log(response);
 
       setReviews(response);
     };
@@ -87,7 +86,13 @@ export default function Product(props) {
                 </h1>
               </div>
               <div className="container">
-                {state.isAuthenticated && <ProductReview />}
+                {state.isAuthenticated && (
+                  <ProductReview
+                    id={product.product_id}
+                    reviews={reviews}
+                    setReviews={setReviews}
+                  />
+                )}
               </div>
               <div className="container">
                 <div className="columns is-multiline">

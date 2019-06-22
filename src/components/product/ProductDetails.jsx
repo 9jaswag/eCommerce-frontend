@@ -82,7 +82,7 @@ export default function ProductDetails({ product, color, size }) {
     <>
       <div className="product-view-product">
         <h1 className={`${styles.product_name}`}>{product.name}</h1>
-        <div className="product-view-rating my-2">
+        {/* <div className="product-view-rating my-2">
           <div className="review_stars">
             <span className="icon icon--rating fas fa-star" />
             <span className="icon icon--rating fas fa-star" />
@@ -91,8 +91,8 @@ export default function ProductDetails({ product, color, size }) {
             <span className="icon icon--rating far fa-star" />
             <span className="heading-font">(150)</span>
           </div>
-        </div>
-        <div className="product-view-description">
+        </div> */}
+        <div className="product-view-description my-2">
           <p className="is-size-4">{product.description}</p>
         </div>
       </div>

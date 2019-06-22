@@ -11,3 +11,23 @@ export async function getDepartment(id) {
   const result = response.json();
   return result;
 }
+
+export async function addReview(payload) {
+  const response = await fetch(
+    `${BASE_URL}/products/${payload.product_id}/reviews`,
+    {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+        "user-key": window.localStorage.getItem("accessToken")
+      }
+    }
+  );
+
+  if (response.ok) {
+    return true;
+  } else {
+    return false;
+  }
+}
