@@ -8,7 +8,7 @@ export default function NotFound() {
         <div className="container has-text-centered">
           <h1 className="title">It's lonely out here</h1>
           <h2 className="subtitle">
-            Here's the way <Link to="/">home</Link>
+            Here's the way <Link to="">home</Link>
           </h2>
         </div>
       </div>

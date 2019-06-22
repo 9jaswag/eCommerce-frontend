@@ -23,11 +23,11 @@ import NotFound from "./components/shared/not_found/NotFound";
 export default (
   <AuthProvider>
     <CartProvider>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Layout>
           <Route>
             <Switch>
-              <Route exact path="/9jaswag" render={() => <Redirect to="/" />} />
+              {/* <Route exact path="/9jaswag" render={() => <Redirect to="/" />} /> */}
               <AuthWrapper exact path="/" component={Home} />
               <AuthWrapper exact path="/products/:id" component={Product} />
               <AuthWrapper exact path="/category/:id" component={Category} />
