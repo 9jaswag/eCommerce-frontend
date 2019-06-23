@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { usePaymentInputs, PaymentInputsWrapper } from "react-payment-inputs";
+import CreditCardInput from "react-credit-card-input";
 import { toast } from "react-toastify";
-import images from "react-payment-inputs/lib/images";
 import FormInput from "../shared/form/FormInput";
 import FormSelect from "../shared/form/FormSelect";
 import { actions, AuthContext } from "../context/auth.context";
@@ -15,6 +14,8 @@ import {
 
 export default function EditProfile(props) {
   const [regions, setRegions] = useState(null);
+  const [cardError, setCardError] = useState(false);
+  const [isSubmitting, setisSubmitting] = useState(false);
   const { state, dispatch } = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState({
     name: state.user.name,
@@ -32,7 +33,6 @@ export default function EditProfile(props) {
     credit_card: state.user.credit_card,
     shipping_region_id: state.user.shipping_region_id
   });
-  const { meta, getCardNumberProps, getCardImageProps } = usePaymentInputs();
 
   useEffect(() => {
     const fetchRegions = async () => {
@@ -73,6 +73,8 @@ export default function EditProfile(props) {
   };
 
   const validateInput = input => {
+    setCardError(false);
+
     if (input.password && input.password.length < 6) {
       toast.error("Please fill all required fields appropriately.");
       return false;
@@ -93,8 +95,8 @@ export default function EditProfile(props) {
       return false;
     }
 
-    if (meta.isTouched && meta.error) {
-      toast.error("Please fill all required fields appropriately.");
+    if (cardError) {
+      toast.error("Card is invalid");
       return false;
     }
 
@@ -103,6 +105,7 @@ export default function EditProfile(props) {
 
   const onSubmit = async event => {
     event.preventDefault();
+    setisSubmitting(true);
 
     const valid = validateInput(userDetails);
     if (!valid) return;
@@ -113,11 +116,15 @@ export default function EditProfile(props) {
       const creditCardResponse = await updateCreditCard(userDetails);
 
       dispatch(actions.SET_TOKEN(creditCardResponse));
+      setisSubmitting(false);
+
       toast.success("Profile updated successfully!", {
         onClose: () => (window.location.href = "/profile")
       });
     } catch (error) {
       const errorResponse = await error;
+      setisSubmitting(false);
+
       toast.error("Profile update failed. Please retry!");
     }
   };
@@ -296,28 +303,25 @@ export default function EditProfile(props) {
                   Credit card <span className="has-text-danger">*</span>
                 </label>
                 <div className="control">
-                  <PaymentInputsWrapper className="user-card-input">
-                    <svg {...getCardImageProps({ images })} />
-
-                    <input
-                      id="card-credit"
-                      className="w-100"
-                      {...getCardNumberProps({
-                        onChange: onCcChange
-                      })}
-                      value={
-                        userDetails.credit_card ? userDetails.credit_card : ""
-                      }
-                    />
-                  </PaymentInputsWrapper>
-                  {/* {meta.isTouched && meta.error && (
-                        <span>Error: {meta.error}</span>
-                      )} */}
+                  <CreditCardInput
+                    cardNumberInputProps={{
+                      value: userDetails.credit_card,
+                      onChange: onCcChange,
+                      onError: err => setCardError(true)
+                    }}
+                    fieldClassName="user-card-input"
+                  />
                 </div>
               </div>
               <div className="field">
                 <div className="field mt-2">
-                  <button className="button is-primary" type="submit">
+                  <button
+                    className={`button is-primary ${
+                      isSubmitting ? "is-loading" : ""
+                    }`}
+                    disabled={isSubmitting}
+                    type="submit"
+                  >
                     Update Profile
                   </button>
                 </div>
