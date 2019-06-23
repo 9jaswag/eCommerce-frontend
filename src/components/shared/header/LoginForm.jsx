@@ -44,11 +44,13 @@ export default function LoginForm() {
     try {
       const response = await login(payload);
       setUserData(response);
+      window.location.reload();
     } catch (error) {
       const errorResponse = await error;
       setError(errorResponse.error.message);
     }
   };
+
   return (
     <div className="section">
       <div className="columns">
