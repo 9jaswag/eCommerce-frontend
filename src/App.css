@@ -270,3 +270,8 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-left: 10rem;
   }
 }
+
+button.navbar-burger.burger {
+  background: transparent;
+  border: none;
+}

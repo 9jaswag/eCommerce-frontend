@@ -78,19 +78,17 @@ function Header(props) {
           <Link className="navbar-item" to="/">
             <img src={logo} alt="Shoppy logo" width={112} height={28} />
           </Link>
-          <Link
-            role="button"
+          <button
             className="navbar-burger burger"
             aria-label="menu"
             aria-expanded="false"
             data-target="navbar-toggle"
-            to="#"
             onClick={toggleMobileNav}
           >
             <span aria-hidden="true" />
             <span aria-hidden="true" />
             <span aria-hidden="true" />
-          </Link>
+          </button>
         </div>
         <div id="navbar-toggle" className="navbar-menu">
           <div className="navbar-end">
