@@ -253,7 +253,7 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #a3aab1 !important;
 }
 
-.user-card-input > div {
+.user-card-input {
   border: none !important;
   box-shadow: none;
   border-bottom: 1px solid #00d1b2 !important;
@@ -261,12 +261,13 @@ input[type="number"]::-webkit-outer-spin-button {
   padding-left: 0;
 }
 
-.lVApJ {
-  width: 100%;
-}
-
 @media screen and (min-width: 769px) {
   .card-input-wrapper {
     margin-left: 10rem;
   }
+}
+
+button.navbar-burger.burger {
+  background: transparent;
+  border: none;
 }
