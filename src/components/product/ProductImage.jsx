@@ -38,11 +38,13 @@ export default function ProductImage({ product }) {
           name={product.name}
           onClick={onClick}
         />
-        <ProductImageThumbnail
-          image={product.image_2}
-          name={product.name}
-          onClick={onClick}
-        />
+        {product.image_2 && (
+          <ProductImageThumbnail
+            image={product.image_2}
+            name={product.name}
+            onClick={onClick}
+          />
+        )}
       </div>
     </>
   );
