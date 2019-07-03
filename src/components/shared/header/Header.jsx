@@ -14,6 +14,10 @@ function Header(props) {
   const { state } = useContext(AuthContext);
   const { state: cartState, dispatch } = useContext(CartContext);
 
+  const currentCategory = props.location.pathname.includes("department")
+    ? parseInt(props.location.pathname.split("/")[2])
+    : null;
+
   useEffect(() => {
     const fetchDepartments = async () => {
       const response = await fetch("https://backendapi.turing.com/departments")
@@ -97,6 +101,7 @@ function Header(props) {
                 key={department.department_id}
                 path={`/department/${department.department_id}`}
                 value={department.name}
+                isActive={currentCategory === department.department_id}
               />
             ))}
             <div className="navbar-item">
