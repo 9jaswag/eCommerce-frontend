@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./product.module.scss";
 import { displayPrice } from "../../../helpers/displayPrice";
 
-export default function({ product }) {
+export default function({ product, onClick }) {
   const [price, slashedPrice] = displayPrice(
     product.price,
     product.discounted_price
@@ -19,6 +19,7 @@ export default function({ product }) {
             }`}
             alt={`${product.name} thumbnail`}
             title={`${product.name} thumbnail`}
+            onClick={onClick}
           />
         </figure>
         <div className="product_card-body mt-1">

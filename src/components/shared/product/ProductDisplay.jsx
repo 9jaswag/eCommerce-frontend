@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import ProductCard from "./ProductCard";
 import Loader from "../loader/Loader";
+import ProductDisplayModal from "./ProductDisplayModal";
 import styles from "./product.module.scss";
 
 export default function ProductDisplay(props) {
@@ -21,6 +22,7 @@ export default function ProductDisplay(props) {
     page: 1,
     limit: 12
   });
+  const [modalImage, setModalImage] = useState(null);
 
   useEffect(() => {
     const buildProductURL = () => {
@@ -87,8 +89,20 @@ export default function ProductDisplay(props) {
     );
   };
 
+  const showImageModal = event => {
+    const {
+      target: { src }
+    } = event;
+
+    setModalImage(src);
+
+    const modal = document.querySelector(`.modal.product-display`);
+    modal.classList.add("is-active");
+  };
+
   return (
     <div className="">
+      <ProductDisplayModal src={modalImage} />
       {products.count > 0 ? (
         <>
           <h3 className="is-uppercase is-size-4 has-text-centered my-3">
@@ -105,7 +119,11 @@ export default function ProductDisplay(props) {
               </div>
             ) : (
               products.rows.map(product => (
-                <ProductCard key={product.product_id} product={product} />
+                <ProductCard
+                  key={product.product_id}
+                  product={product}
+                  onClick={showImageModal}
+                />
               ))
             )}
           </div>
