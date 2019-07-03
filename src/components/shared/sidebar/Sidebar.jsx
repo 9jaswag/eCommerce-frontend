@@ -9,7 +9,9 @@ export default function Sidebar() {
     count: 0,
     rows: []
   });
-  const currentCategory = parseInt(window.location.pathname.split("/")[2]);
+  const currentCategory = window.location.pathname.includes("category")
+    ? parseInt(window.location.pathname.split("/")[2])
+    : null;
 
   useEffect(() => {
     const fetchCategories = async () => {
