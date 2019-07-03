@@ -107,11 +107,13 @@ export default function ProductDetails({ product, color, size }) {
             {colorError && <DisplayError message={colorError} />}
             <div className="mt-1 mb-2">
               {color.length > 0 ? (
-                <Radio
-                  attributes={color}
-                  onClick={onRadioClick}
-                  isColor={true}
-                />
+                <div className="columns is-multiline">
+                  <Radio
+                    attributes={color}
+                    onClick={onRadioClick}
+                    isColor={true}
+                  />
+                </div>
               ) : null}
             </div>
           </div>
@@ -120,7 +122,9 @@ export default function ProductDetails({ product, color, size }) {
             {sizeError && <DisplayError message={sizeError} />}
             <div className="mt-1 mb-2">
               {size.length > 0 ? (
-                <Radio attributes={size} onClick={onRadioClick} />
+                <div className="columns is-multiline">
+                  <Radio attributes={size} onClick={onRadioClick} />
+                </div>
               ) : null}
             </div>
           </div>
