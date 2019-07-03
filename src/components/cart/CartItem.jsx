@@ -14,8 +14,18 @@ export default function CartItem({ item, cartItems }) {
     };
 
     const response = await updateCartItem(payload);
+    const updatedProduct = response.find(product => {
+      return product.item_id === item.item_id;
+    });
 
-    cartItems(response);
+    const newCart = state.cartItems.map(product => {
+      if (product.item_id === item.item_id)
+        return { ...product, quantity: updatedProduct.quantity };
+
+      return product;
+    });
+
+    cartItems(newCart);
   };
 
   const removeItem = async () => {
