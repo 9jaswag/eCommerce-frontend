@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { CartContext } from "../context/cart.context";
+import { getCartItems } from "../../action/cart.action";
+import Loader from "../shared/loader/Loader";
 import CartItem from "./CartItem";
 import EmptyCart from "./EmptyCart";
 
@@ -9,10 +11,21 @@ export default function Cart() {
   const { state } = useContext(AuthContext);
   const { state: cartState } = useContext(CartContext);
   const [cartItems, setCartItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setCartItems(cartState.cartItems);
-  }, [cartState.cartItems]);
+    const cartId = cartState.cartId;
+
+    const fetchCartItems = async () => {
+      setIsLoading(true);
+      const response = await getCartItems(cartId);
+
+      setCartItems(response);
+      setIsLoading(false);
+    };
+
+    fetchCartItems();
+  }, [cartState.cartItems, cartState.cartId]);
 
   return (
     <section className="section">
@@ -44,19 +57,27 @@ export default function Cart() {
                   </div>
                 </nav>
               </div>
-              <div className="cart-items mt-2">
-                {cartItems.length > 0 ? (
-                  cartItems.map(item => (
-                    <CartItem
-                      key={item.item_id}
-                      item={item}
-                      cartItems={setCartItems}
-                    />
-                  ))
-                ) : (
-                  <EmptyCart />
-                )}
-              </div>
+              {isLoading ? (
+                <div className="container">
+                  <div className="columns is-centered is-vcentered is-mobile">
+                    <Loader />
+                  </div>
+                </div>
+              ) : (
+                <div className="cart-items mt-2">
+                  {cartItems.length > 0 ? (
+                    cartItems.map(item => (
+                      <CartItem
+                        key={item.item_id}
+                        item={item}
+                        cartItems={setCartItems}
+                      />
+                    ))
+                  ) : (
+                    <EmptyCart />
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

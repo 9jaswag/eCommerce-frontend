@@ -4,7 +4,10 @@ import styles from "./product.module.scss";
 import Radio from "../shared/product/Radio";
 import QuantityToggle from "../shared/product/QuantityToggle";
 import DisplayError from "../shared/error/DisplayError";
-import { addToCart as addProductToCart } from "../../action/cart.action";
+import {
+  addToCart as addProductToCart,
+  updateCartItem
+} from "../../action/cart.action";
 import { actions, CartContext } from "../context/cart.context";
 import { displayPrice } from "../../helpers/displayPrice";
 
@@ -15,7 +18,7 @@ export default function ProductDetails({ product, color, size }) {
   const [quantityError, setQuantitiyError] = useState(null);
   const [sizeError, setSizeError] = useState(null);
   const [colorError, setColorError] = useState(null);
-  const { dispatch } = useContext(CartContext);
+  const { state, dispatch } = useContext(CartContext);
   const [price, slashedPrice] = displayPrice(
     product.price,
     product.discounted_price
@@ -50,7 +53,24 @@ export default function ProductDetails({ product, color, size }) {
     const response = await addProductToCart(payload);
     dispatch(actions.SET_CART_ITEMS(response));
 
-    toast.success("Product has been added to cart");
+    toast.success("Product has been added to cart", {
+      onClose: async () => {
+        const payload = { quantity, itemId: response[0].item_id };
+
+        const res = await updateCartItem(payload);
+
+        const updatedProduct = res.find(product => {
+          return product.item_id === response[0].item_id;
+        });
+
+        const newCartItem = {
+          ...response[0],
+          quantity: updatedProduct.quantity
+        };
+        dispatch(actions.SET_CART_ITEMS([...state.cartItems, newCartItem]));
+        return;
+      }
+    });
   };
 
   const validatePurchase = () => {
