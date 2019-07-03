@@ -4,8 +4,8 @@ export default function Radio({ attributes, onClick, isColor = false }) {
   return (
     <>
       {attributes.map(attr => (
-        <div className="column is-3 custom-radio">
-          <li className="is-inline-block" key={attr.attribute_value_id}>
+        <div className="column is-3 custom-radio" key={attr.attribute_value_id}>
+          <li className="is-inline-block">
             <label className="swatch-label body-font has-text-weight-bold">
               <input
                 type="radio"
