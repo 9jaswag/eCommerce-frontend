@@ -3,6 +3,7 @@ import { getCategory } from "../../action/product.action";
 import GroupHero from "./GroupHero";
 import ProductDisplay from "../shared/product/ProductDisplay";
 import Sidebar from "../shared/sidebar/Sidebar";
+import Loader from "../shared/loader/Loader";
 
 export default function Category(props) {
   const {
@@ -12,12 +13,15 @@ export default function Category(props) {
   } = props;
 
   const [category, setCategory] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       const response = await getCategory(id);
 
       setCategory(response);
+      setIsLoading(false);
     };
 
     fetchProducts();
@@ -25,8 +29,21 @@ export default function Category(props) {
 
   return (
     <section>
-      {Object.entries(category).length > 0 && (
-        <GroupHero name={category.name} description={category.description} />
+      {isLoading ? (
+        <div className="container">
+          <div className="columns is-centered is-vcentered is-mobile">
+            <Loader />
+          </div>
+        </div>
+      ) : (
+        <>
+          {Object.entries(category).length > 0 && (
+            <GroupHero
+              name={category.name}
+              description={category.description}
+            />
+          )}
+        </>
       )}
       <div className="container is-fluid">
         <div className="columns">

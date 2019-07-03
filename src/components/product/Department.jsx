@@ -3,6 +3,7 @@ import { getDepartment } from "../../action/product.action";
 import GroupHero from "./GroupHero";
 import ProductDisplay from "../shared/product/ProductDisplay";
 import Sidebar from "../shared/sidebar/Sidebar";
+import Loader from "../shared/loader/Loader";
 
 export default function Department(props) {
   const {
@@ -12,12 +13,15 @@ export default function Department(props) {
   } = props;
 
   const [department, setDepartment] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       const response = await getDepartment(id);
 
       setDepartment(response);
+      setIsLoading(false);
     };
 
     fetchProducts();
@@ -25,11 +29,21 @@ export default function Department(props) {
 
   return (
     <section>
-      {Object.entries(department).length > 0 && (
-        <GroupHero
-          name={department.name}
-          description={department.description}
-        />
+      {isLoading ? (
+        <div className="container">
+          <div className="columns is-centered is-vcentered is-mobile">
+            <Loader />
+          </div>
+        </div>
+      ) : (
+        <>
+          {Object.entries(department).length > 0 && (
+            <GroupHero
+              name={department.name}
+              description={department.description}
+            />
+          )}
+        </>
       )}
       <div className="container is-fluid">
         <div className="columns">
