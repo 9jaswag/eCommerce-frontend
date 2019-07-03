@@ -9,6 +9,7 @@ export default function Sidebar() {
     count: 0,
     rows: []
   });
+  const currentCategory = parseInt(window.location.pathname.split("/")[2]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -44,7 +45,14 @@ export default function Sidebar() {
                 key={category.category_id}
                 className="body-font has-text-weight-medium is-uppercase"
               >
-                <Link to={`/category/${category.category_id}`}>
+                <Link
+                  to={`/category/${category.category_id}`}
+                  className={
+                    category.category_id === currentCategory
+                      ? "has-background-light"
+                      : ""
+                  }
+                >
                   {category.name}
                 </Link>
               </li>
