@@ -51,29 +51,29 @@ export default function ProductDetails({ product, color, size }) {
     };
 
     const response = await addProductToCart(payload);
-    dispatch(actions.SET_CART_ITEMS(response));
 
     const radios = document.querySelectorAll('input[type="radio"]');
     radios.forEach(rad => (rad.checked = false));
 
-    toast.success("Product has been added to cart", {
-      onClose: async () => {
-        const payload = { quantity, itemId: response[0].item_id };
+    updateProductQuantity(response);
 
-        const res = await updateCartItem(payload);
+    toast.success("Product has been added to cart");
+  };
 
-        const updatedProduct = res.find(product => {
-          return product.item_id === response[0].item_id;
-        });
+  const updateProductQuantity = async response => {
+    const payload = { quantity, itemId: response[0].item_id };
 
-        const newCartItem = {
-          ...response[0],
-          quantity: updatedProduct.quantity
-        };
-        dispatch(actions.SET_CART_ITEMS([...state.cartItems, newCartItem]));
-        return;
-      }
+    const res = await updateCartItem(payload);
+
+    const updatedProduct = res.find(product => {
+      return product.item_id === response[0].item_id;
     });
+
+    const newCartItem = {
+      ...response[0],
+      quantity: updatedProduct.quantity
+    };
+    dispatch(actions.SET_CART_ITEMS([...state.cartItems, newCartItem]));
   };
 
   const validatePurchase = () => {
