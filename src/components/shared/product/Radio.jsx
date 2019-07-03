@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Radio({ attributes, onClick }) {
+export default function Radio({ attributes, onClick, isColor = false }) {
   return (
     <ul>
       {attributes.map(attr => (
@@ -9,11 +9,14 @@ export default function Radio({ attributes, onClick }) {
             <input
               type="radio"
               name={attr.attribute_name}
-              className="check-custom"
+              className={`check-custom ${isColor ? "color-radio" : ""}`}
               onClick={onClick}
               hidden
             />
-            <span className="check-toggle" />
+            <span
+              className="check-toggle"
+              style={{ backgroundColor: attr.attribute_value }}
+            />
             {attr.attribute_value}
           </label>
         </li>

@@ -126,7 +126,6 @@ input[type="radio"].check-custom ~ .check-toggle {
   display: inline-block;
   vertical-align: middle;
   border: 1px solid #969696;
-  border-radius: 50%;
   cursor: pointer;
   margin-right: 0.5rem;
 }
@@ -154,12 +153,20 @@ input[type="radio"].check-custom:checked ~ .check-toggle::after {
   left: 0;
   right: 0;
   bottom: 0;
-  width: 40%;
-  height: 40%;
+  width: 50%;
+  height: 50%;
   margin: auto;
   position: absolute;
-  border-radius: 30%;
+  border-radius: 50%;
   background: #00d1b2;
+}
+
+input[type="radio"].color-radio.check-custom:checked ~ .check-toggle {
+  border: 1px solid #000000 !important;
+}
+
+input[type="radio"].color-radio.check-custom:checked ~ .check-toggle::after {
+  background: #ffffff;
 }
 
 .swatch-label {

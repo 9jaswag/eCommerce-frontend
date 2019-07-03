@@ -107,7 +107,11 @@ export default function ProductDetails({ product, color, size }) {
             {colorError && <DisplayError message={colorError} />}
             <div className="mt-1 mb-2">
               {color.length > 0 ? (
-                <Radio attributes={color} onClick={onRadioClick} />
+                <Radio
+                  attributes={color}
+                  onClick={onRadioClick}
+                  isColor={true}
+                />
               ) : null}
             </div>
           </div>
