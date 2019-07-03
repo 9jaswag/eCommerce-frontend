@@ -13,7 +13,7 @@ export default function({ product, onClick }) {
       <article className={styles.product_card}>
         <figure className="product_card-figure image is-square">
           <img
-            className="product_card-image"
+            className="product_card-image pointer"
             src={`https://backendapi.turing.com/images/products/${
               product.thumbnail
             }`}

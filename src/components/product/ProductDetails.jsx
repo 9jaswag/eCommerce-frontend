@@ -53,6 +53,9 @@ export default function ProductDetails({ product, color, size }) {
     const response = await addProductToCart(payload);
     dispatch(actions.SET_CART_ITEMS(response));
 
+    const radios = document.querySelectorAll('input[type="radio"]');
+    radios.forEach(rad => (rad.checked = false));
+
     toast.success("Product has been added to cart", {
       onClose: async () => {
         const payload = { quantity, itemId: response[0].item_id };
