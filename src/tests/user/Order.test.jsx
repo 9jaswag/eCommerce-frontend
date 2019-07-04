@@ -1,18 +1,18 @@
+import React from "react";
+import {
+  render,
+  fireEvent,
+  cleanup,
+  waitForElement
+} from "@testing-library/react";
+import "jest-dom/extend-expect";
 import Order from "../../components/user/Order";
-import setup from "../setup";
 
-const component = Order;
-const props = {
-  id: 1
-};
+afterEach(cleanup);
 
 describe("<Order />", () => {
-  it("renders without crashing", () => {
-    const { wrapper } = setup({
-      component,
-      props
-    });
-
-    expect(wrapper.find("div")).toHaveLength(1);
+  it("should load and display order component", () => {
+    const { getByText } = render(<Order id={16937} />);
+    // console.log(getByText("Orders"));
   });
 });
