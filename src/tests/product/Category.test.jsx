@@ -1,20 +1,25 @@
+import React from "react";
+import {
+  render,
+  fireEvent,
+  cleanup,
+  waitForElement
+} from "@testing-library/react";
+import "jest-dom/extend-expect";
 import Category from "../../components/product/Category";
-import setup from "../setup";
 
-const component = Category;
-const props = {
-  match: { params: { id: 1 } }
-};
+afterEach(cleanup);
 
 describe("<Category />", () => {
-  it("renders without crashing", () => {
-    const { wrapper } = setup({
-      component,
-      props
-    });
+  it("should render without crashing", () => {
+    const props = {
+      match: { params: { id: 1 }, path: "/search" },
+      location: { search: "?q=irish" }
+    };
 
-    expect(wrapper.find("section")).toHaveLength(1);
-    expect(wrapper.find("Sidebar")).toBeTruthy();
-    expect(wrapper.find("ProductDisplay")).toBeTruthy();
+    const { getByText } = render(<Category {...props} />);
+
+    const text = getByText("Categories");
+    expect(text).toHaveTextContent("Categories");
   });
 });

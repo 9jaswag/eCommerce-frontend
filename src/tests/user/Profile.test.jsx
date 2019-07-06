@@ -13,7 +13,7 @@ import { MemoryRouter } from "react-router-dom";
 afterEach(cleanup);
 
 describe("<Profile />", () => {
-  it("should load and display profile component", () => {
+  it("should render without crashing", () => {
     const state = {
       user: { name: "Dude" }
     };
