@@ -1,15 +1,36 @@
+import React from "react";
+import {
+  render,
+  fireEvent,
+  cleanup,
+  waitForElement
+} from "@testing-library/react";
+import "jest-dom/extend-expect";
 import Sidebar from "../../components/shared/sidebar/Sidebar";
-import setup from "../setup";
+import { AuthContext } from "../../components/context/auth.context";
+import { MemoryRouter } from "react-router-dom";
 
-const component = Sidebar;
+afterEach(cleanup);
 
 describe("<Sidebar />", () => {
-  it("renders without crashing", () => {
-    const { wrapper } = setup({
-      component
-    });
+  it("should render without crashing", () => {
+    const state = {
+      user: { name: "Dude" }
+    };
 
-    expect(wrapper.find(".menu")).toHaveLength(1);
-    expect(wrapper.find("Loader")).toBeTruthy();
+    const { getByText } = render(
+      <AuthContext.Provider value={{ state }}>
+        <MemoryRouter>
+          <Sidebar />
+        </MemoryRouter>
+      </AuthContext.Provider>
+    );
+
+    const text = getByText("Categories");
+    expect(text).toHaveTextContent("Categories");
+
+    // const toggle = text.firstElementChild;
+    // fireEvent.click(toggle);
+    // console.log(toggle.className);
   });
 });

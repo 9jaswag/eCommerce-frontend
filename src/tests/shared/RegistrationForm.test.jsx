@@ -6,23 +6,23 @@ import {
   waitForElement
 } from "@testing-library/react";
 import "jest-dom/extend-expect";
-import LoginForm from "../../components/shared/header/LoginForm";
+import RegistrationForm from "../../components/shared/header/RegistrationForm";
 
 afterEach(cleanup);
 
-describe("<LoginForm />", () => {
+describe("<RegistrationForm />", () => {
   it("should render without crashing", () => {
-    const { getByText } = render(<LoginForm />);
+    const { getByText } = render(<RegistrationForm />);
 
-    const button = getByText("Log In");
-    expect(button).toHaveTextContent("Log In");
+    const button = getByText("Sign Up");
+    expect(button).toHaveTextContent("Sign Up");
   });
 
   it("should display validation error", () => {
-    const { getByText, container } = render(<LoginForm />);
+    const { getByText, container } = render(<RegistrationForm />);
 
-    const emailInput = container.querySelector("#userEmail");
-    const button = getByText("Log In");
+    const emailInput = container.querySelector("#email");
+    const button = getByText("Sign Up");
 
     fireEvent.change(emailInput, { target: { value: "dude@email.com" } });
 
@@ -33,13 +33,15 @@ describe("<LoginForm />", () => {
   });
 
   it("should attempt to submit the form", () => {
-    const { getByText, container } = render(<LoginForm />);
+    const { getByText, container } = render(<RegistrationForm />);
 
-    const emailInput = container.querySelector("#userEmail");
-    const passwordInput = container.querySelector("#userPassword");
-    const button = getByText("Log In");
+    const emailInput = container.querySelector("#email");
+    const nameInput = container.querySelector("#name");
+    const passwordInput = container.querySelector("#password");
+    const button = getByText("Sign Up");
 
     fireEvent.change(emailInput, { target: { value: "dude@email.com" } });
+    fireEvent.change(nameInput, { target: { value: "dude" } });
     fireEvent.change(passwordInput, { target: { value: "secretpassword" } });
 
     fireEvent.click(button);

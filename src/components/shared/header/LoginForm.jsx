@@ -71,7 +71,7 @@ export default function LoginForm() {
                   <div className="form-body">
                     {error && <DisplayError message={error} />}
                     <div className="field mt-2">
-                      <label htmlFor="email">Email</label>
+                      <label htmlFor="userEmail">Email</label>
                       <div className="control">
                         <input
                           type="email"
@@ -85,7 +85,7 @@ export default function LoginForm() {
                       </div>
                     </div>
                     <div className="field mt-2">
-                      <label htmlFor="password">Password</label>
+                      <label htmlFor="userPassword">Password</label>
                       <div className="control">
                         <input
                           type="password"
