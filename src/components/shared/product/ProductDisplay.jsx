@@ -88,6 +88,7 @@ export default function ProductDisplay(props) {
         containerClassName={"pagination-list"}
         activeLinkClassName={"is-current"}
         pageLinkClassName={"pagination-link"}
+        forcePage={paginationMetadata.page - 1}
       />
     );
   };
@@ -101,6 +102,20 @@ export default function ProductDisplay(props) {
 
     const modal = document.querySelector(`.modal.product-display`);
     modal.classList.add("is-active");
+  };
+
+  const paginate = () => {
+    const { limit, page } = paginationMetadata;
+    const data = {
+      total: products.count,
+      per_page: limit,
+      current_page: page,
+      last_page: Math.ceil(products.count / limit),
+      from: (page - 1) * limit + 1,
+      to: Math.min(limit * page, products.count)
+    };
+
+    return `Showing ${data.from} - ${data.to} of ${data.total} products`;
   };
 
   return (
@@ -117,11 +132,7 @@ export default function ProductDisplay(props) {
           {products.count > 0 ? (
             <>
               <h3 className="is-uppercase is-size-4 has-text-centered my-3">
-                {`Showing ${paginationMetadata.page} - ${
-                  products.count < 12
-                    ? products.count
-                    : paginationMetadata.page * 12
-                } of ${products.count} products`}
+                {paginate()}
               </h3>
               <div className="columns is-multiline">
                 {products.count === 0 ? (

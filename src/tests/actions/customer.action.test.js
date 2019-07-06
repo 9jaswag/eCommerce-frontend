@@ -45,29 +45,6 @@ describe("Customer actions", () => {
 
       expect(response.name).toBe("Lannucci");
     });
-
-    // it("should return an error message", async () => {
-    //   const mockErrorResponse = { message: "The apikey is invalid" };
-
-    //   const fetchResponse = {
-    //     ok: false,
-    //     json: () => mockErrorResponse
-    //   };
-
-    //   const fetch = jest.fn(
-    //     () => new Promise(reject => reject(fetchResponse))
-    //   );
-
-    //   global.fetch = fetch;
-
-    //   const payload = {
-    //     name: "Lannucci"
-    //   };
-
-    //   const response = await actions.updateProfile(payload);
-
-    //   expect(response.message).toBe("The apikey is invalid");
-    // });
   });
 
   describe("update user's address action", () => {

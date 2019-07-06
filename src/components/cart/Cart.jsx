@@ -12,9 +12,10 @@ export default function Cart() {
   const { state: cartState } = useContext(CartContext);
   const [cartItems, setCartItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
-    const cartId = cartState.cartId;
+    const { cartId, cartItems } = cartState;
 
     const fetchCartItems = async () => {
       setIsLoading(true);
@@ -25,7 +26,19 @@ export default function Cart() {
     };
 
     fetchCartItems();
-  }, [cartState.cartItems, cartState.cartId]);
+
+    const cartProductTotal = () => {
+      const total = cartItems.reduce((curr, item) => {
+        return curr + parseFloat(item.subtotal);
+      }, 0);
+
+      const fixedTotal = cartItems.length > 0 ? total.toFixed(2) : 0;
+
+      setCartTotal(fixedTotal);
+    };
+
+    cartProductTotal();
+  }, [cartState]);
 
   return (
     <section className="section">
@@ -37,7 +50,7 @@ export default function Cart() {
                 <nav className="level">
                   <div className="level-left">
                     <div className="level-item">
-                      <p className="heading-font">
+                      <p className="heading-font has-text-weight-bold">
                         {state.isAuthenticated
                           ? `${state.user.name}'s Cart`
                           : "Your Cart"}
@@ -45,7 +58,7 @@ export default function Cart() {
                     </div>
                   </div>
                   <div className="level-right">
-                    <p className="level-item">
+                    <p className="level-item has-text-weight-bold">
                       {state.isAuthenticated
                         ? cartItems.length > 0 && (
                             <Link to="/checkout" className="button is-success">
@@ -56,6 +69,11 @@ export default function Cart() {
                     </p>
                   </div>
                 </nav>
+                <div className="has-text-right">
+                  <p className="is-size-5 has-text-weight-bold">
+                    {`Cart Total: $${cartTotal}`}
+                  </p>
+                </div>
               </div>
               {isLoading ? (
                 <div className="container">

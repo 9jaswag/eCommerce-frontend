@@ -52,10 +52,8 @@ export default function ProductDetails({ product, color, size }) {
 
     const response = await addProductToCart(payload);
 
-    const radios = document.querySelectorAll('input[type="radio"]');
-    radios.forEach(rad => (rad.checked = false));
-
     updateProductQuantity(response);
+    resetState();
 
     toast.success("Product has been added to cart");
   };
@@ -101,6 +99,16 @@ export default function ProductDetails({ product, color, size }) {
     setQuantity(1);
     setSizeError(null);
     setColorError(null);
+  };
+
+  const resetState = () => {
+    const radios = document.querySelectorAll('input[type="radio"]');
+    radios.forEach(rad => (rad.checked = false));
+
+    setQuantity(1);
+    setProductSize(null);
+    setProductColor(null);
+    clearErrors();
   };
 
   return (

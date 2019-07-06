@@ -20,7 +20,11 @@ export default function CartItem({ item, cartItems }) {
 
     const newCart = state.cartItems.map(product => {
       if (product.item_id === item.item_id)
-        return { ...product, quantity: updatedProduct.quantity };
+        return {
+          ...product,
+          quantity: updatedProduct.quantity,
+          subtotal: updatedProduct.subtotal
+        };
 
       return product;
     });

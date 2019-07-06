@@ -85,7 +85,7 @@ h6 {
 }
 
 p {
-  font-family: "Josefin Slab", serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .heading-font {
@@ -93,7 +93,7 @@ p {
 }
 
 .body-font {
-  font-family: "Josefin Slab", serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .pointer {
@@ -177,7 +177,7 @@ input[type="radio"].color-radio.check-custom:checked ~ .check-toggle::after {
 
 .swatch-label {
   margin-right: 0.7rem;
-  user-select: none;
+  user-select: hidden;
   cursor: pointer;
 }
 
@@ -235,7 +235,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  font-family: "Josefin Slab", serif;
+  font-family: "Nunito Sans", sans-serif;
   font-style: italic;
   font-size: 0.85rem;
   font-weight: 100;
@@ -243,7 +243,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 ::-moz-placeholder {
   /* Firefox 19+ */
-  font-family: "Josefin Slab", serif;
+  font-family: "Nunito Sans", sans-serif;
   font-style: italic;
   font-size: 0.85rem;
   font-weight: 100;
@@ -251,7 +251,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 :-ms-input-placeholder {
   /* IE 10+ */
-  font-family: "Josefin Slab", serif;
+  font-family: "Nunito Sans", sans-serif;
   font-style: italic;
   font-size: 0.85rem;
   font-weight: 100;
@@ -259,7 +259,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 :-moz-placeholder {
   /* Firefox 18- */
-  font-family: "Josefin Slab", serif;
+  font-family: "Nunito Sans", sans-serif;
   font-style: italic;
   font-size: 0.85rem;
   font-weight: 100;
@@ -283,4 +283,20 @@ input[type="number"]::-webkit-outer-spin-button {
 button.navbar-burger.burger {
   background: transparent;
   border: none;
+}
+
+.button.is-rounded.mt-2.is-uppercase.buy-now-button {
+  visibility: hidden;
+}
+
+.product-hover:hover .button.is-rounded.mt-2.is-uppercase.buy-now-button {
+  visibility: visible;
+}
+
+.product_card-image {
+  transition: 0.2s ease-in;
+}
+
+.product-hover:hover .product_card-image {
+  transform: scale(0.95);
 }

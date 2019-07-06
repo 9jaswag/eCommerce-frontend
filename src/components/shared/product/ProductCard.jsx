@@ -10,7 +10,7 @@ export default function({ product, onClick }) {
   );
   return (
     <div className={`column is-3 ${styles.is_6_tablet}`}>
-      <article className={styles.product_card}>
+      <article className={`product-hover ${styles.product_card}`}>
         <figure className="product_card-figure image is-square">
           <img
             className="product_card-image pointer"
@@ -37,7 +37,7 @@ export default function({ product, onClick }) {
           <div className="product_cta">
             <Link
               to={`/products/${product.product_id}`}
-              className="button is-rounded mt-2 is-uppercase"
+              className="button is-rounded mt-2 is-uppercase buy-now-button"
             >
               Buy Now
             </Link>
