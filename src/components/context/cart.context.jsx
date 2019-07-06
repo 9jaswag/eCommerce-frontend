@@ -2,7 +2,8 @@ import React, { useReducer } from "react";
 
 const initialState = {
   cartId: null,
-  cartItems: []
+  cartItems: [],
+  categories: []
 };
 
 export const actions = {
@@ -13,12 +14,17 @@ export const actions = {
   SET_CART_ITEMS: cartItems => ({
     type: "SET_CART_ITEMS",
     payload: { cartItems }
+  }),
+  SET_CATEGORIES: categories => ({
+    type: "SET_CATEGORIES",
+    payload: { categories }
   })
 };
 
 const reducers = {
   SET_CART_ID: (state, { payload }) => ({ ...state, ...payload }),
-  SET_CART_ITEMS: (state, { payload }) => ({ ...state, ...payload })
+  SET_CART_ITEMS: (state, { payload }) => ({ ...state, ...payload }),
+  SET_CATEGORIES: (state, { payload }) => ({ ...state, ...payload })
 };
 
 export function cartReducer(initialState, action = { type: "", payload: {} }) {

@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import ProductDisplay from "../shared/product/ProductDisplay";
 import Sidebar from "../shared/sidebar/Sidebar";
+import { actions, CartContext } from "../context/cart.context";
 import styles from "./home.module.scss";
 import banner1 from "../../assets/images/banner1.jpg";
 import banner2 from "../../assets/images/banner2.jpg";
 import banner3 from "../../assets/images/banner3.jpg";
 
 export default props => {
+  const categoriesURL = "https://backendapi.turing.com/categories";
+  const { dispatch } = useContext(CartContext);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch(categoriesURL)
+        .then(response => response.json())
+        .then(response => response);
+
+      dispatch(actions.SET_CATEGORIES(response.rows));
+    };
+    fetchCategories();
+  }, [categoriesURL, dispatch]);
+
   return (
     <>
-      {/* level maybe? */}
       <section className="section">
         <div className="container is-fluid">
           <div className="columns">
@@ -23,7 +37,7 @@ export default props => {
                   <div className="tile is-ancestor">
                     <div className="tile is-vertical is-8">
                       <div className="tile">
-                        <div className="tile is-parent is-vertical">
+                        <div className="tile is-categoriesURL is-vertical">
                           <article className="tile is-child notification is-primary">
                             <p className="title">Fashion for all places</p>
                             <p className="subtitle">

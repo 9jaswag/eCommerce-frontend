@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getDepartment } from "../../action/product.action";
 import GroupHero from "./GroupHero";
 import ProductDisplay from "../shared/product/ProductDisplay";
 import Sidebar from "../shared/sidebar/Sidebar";
 import Loader from "../shared/loader/Loader";
+import { actions, CartContext } from "../context/cart.context";
 
 export default function Department(props) {
   const {
@@ -12,8 +13,12 @@ export default function Department(props) {
     }
   } = props;
 
+  const categoriesURL = "https://backendapi.turing.com/categories/inDepartment";
+
   const [department, setDepartment] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  const { dispatch } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,7 +30,16 @@ export default function Department(props) {
     };
 
     fetchProducts();
-  }, [id]);
+
+    const fetchCategories = async () => {
+      const response = await fetch(`${categoriesURL}/${id}`)
+        .then(response => response.json())
+        .then(response => response);
+
+      dispatch(actions.SET_CATEGORIES(response));
+    };
+    fetchCategories();
+  }, [id, dispatch]);
 
   return (
     <section>
