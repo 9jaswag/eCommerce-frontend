@@ -4,7 +4,6 @@ import Loader from "../loader/Loader";
 import { CartContext } from "../../context/cart.context";
 import styles from "./sidebar.module.scss";
 
-// https://backendapi.turing.com/categories/inDepartment/1
 export default function Sidebar() {
   const { state } = useContext(CartContext);
   const [categories, setCategories] = useState([]);
@@ -16,8 +15,6 @@ export default function Sidebar() {
   useEffect(() => {
     setCategories(state.categories);
   }, [state.categories]);
-
-  console.log(categories);
 
   const toggleMenu = () => {
     const categoryMenu = document.querySelector(".menu-list.category-menu");

@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import Sidebar from "../../components/shared/sidebar/Sidebar";
-import { AuthContext } from "../../components/context/auth.context";
+import { CartContext } from "../../components/context/cart.context";
 import { MemoryRouter } from "react-router-dom";
 
 afterEach(cleanup);
@@ -15,15 +15,29 @@ afterEach(cleanup);
 describe("<Sidebar />", () => {
   it("should render without crashing", () => {
     const state = {
-      user: { name: "Dude" }
+      cartId: "xyz",
+      cartItems: [
+        {
+          item_id: 1,
+          item: "some item"
+        }
+      ],
+      categories: [
+        {
+          category_id: 1,
+          name: "French",
+          description: "The French have always had an eye for beauty.",
+          department_id: 1
+        }
+      ]
     };
 
     const { getByText } = render(
-      <AuthContext.Provider value={{ state }}>
+      <CartContext.Provider value={{ state }}>
         <MemoryRouter>
           <Sidebar />
         </MemoryRouter>
-      </AuthContext.Provider>
+      </CartContext.Provider>
     );
 
     const text = getByText("Categories");
