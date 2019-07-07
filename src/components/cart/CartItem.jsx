@@ -29,7 +29,7 @@ export default function CartItem({ item, cartItems }) {
       return product;
     });
 
-    cartItems(newCart);
+    dispatch(actions.SET_CART_ITEMS(newCart));
   };
 
   const removeItem = async () => {

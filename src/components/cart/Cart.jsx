@@ -22,13 +22,14 @@ export default function Cart() {
       const response = await getCartItems(cartId);
 
       setCartItems(response);
+      cartProductTotal(response);
       setIsLoading(false);
     };
 
     fetchCartItems();
 
-    const cartProductTotal = () => {
-      const total = cartItems.reduce((curr, item) => {
+    const cartProductTotal = items => {
+      const total = items.reduce((curr, item) => {
         return curr + parseFloat(item.subtotal);
       }, 0);
 
@@ -36,8 +37,6 @@ export default function Cart() {
 
       setCartTotal(fixedTotal);
     };
-
-    cartProductTotal();
   }, [cartState]);
 
   return (
