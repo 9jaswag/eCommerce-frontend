@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  render,
-  fireEvent,
-  cleanup,
-  waitForElement
-} from "@testing-library/react";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 import "jest-dom/extend-expect";
 import Sidebar from "../../components/shared/sidebar/Sidebar";
 import { CartContext } from "../../components/context/cart.context";
@@ -32,7 +27,7 @@ describe("<Sidebar />", () => {
       ]
     };
 
-    const { getByText } = render(
+    const { getByText, container } = render(
       <CartContext.Provider value={{ state }}>
         <MemoryRouter>
           <Sidebar />
@@ -43,8 +38,15 @@ describe("<Sidebar />", () => {
     const text = getByText("Categories");
     expect(text).toHaveTextContent("Categories");
 
-    // const toggle = text.firstElementChild;
-    // fireEvent.click(toggle);
-    // console.log(toggle.className);
+    expect(
+      container
+        .querySelector(".menu-list.category-menu")
+        .className.includes("is-hidden-mobile")
+    ).toBe(true);
+    const toggle = container.querySelector(".icon.is-large.is-hidden-tablet");
+    fireEvent.click(toggle);
+
+    const menu = container.querySelector(".menu-list.category-menu");
+    expect(menu.className.includes("is-hidden-mobile")).not.toBe(true);
   });
 });

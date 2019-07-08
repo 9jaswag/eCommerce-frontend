@@ -37,6 +37,22 @@ describe("<Category />", () => {
       ]
     };
 
+    const mockSuccessResponse = {
+      department_id: 1,
+      name: "Regional",
+      description:
+        "Proud of your country? Wear a T-shirt with a national symbol stamp!"
+    };
+
+    const fetchResponse = {
+      ok: true,
+      json: () => mockSuccessResponse
+    };
+
+    const fetch = jest.fn(() => new Promise(resolve => resolve(fetchResponse)));
+
+    global.fetch = fetch;
+
     const { getByText } = render(
       <CartContext.Provider value={{ state }}>
         <MemoryRouter>
